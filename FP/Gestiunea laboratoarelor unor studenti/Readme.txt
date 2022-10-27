@@ -1,1 +1,1 @@
-Aplicatie care gestioneaza laboratoarele unor studenti
+Aplicatie care gestioneaza cum studentii isi primesc probleme de laborator
