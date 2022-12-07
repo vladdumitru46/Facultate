@@ -1,2 +1,3 @@
 Crearea unei retele sociale in limbajul Java. Reteaua de socializare contine: adaugare/stergere de utilizatori, adaugare/stergere de prieteni, mesaje intr utilizatori.
+Datele sunt salvate intr-o baza de date sepciala, creata in POSTGRESQL.
 Reteaua de socializare are interfata grafica JAVAFX
