@@ -1,0 +1,3 @@
+Aplic teste ale bazei de date. Testele implica stergerea dintr-un tabel cu o cheie primara, un tabel cu cheie primara si cheie straina, un tabel cu 2 chei primare,
+inserarea in aceleasi tabele si crearea unor view-uri pe tabelel respective. Testul vede cat de eficienta este inserarea, stergerea si view-ul calculandu-le timpul
+la fiecare din actiuni si inseranadu-le automat in tabele de test.
