@@ -1,0 +1,24 @@
+Se cere identificarea comunităților existente într-o rețea folosind un algoritm evolutiv. Se vor folosi
+
+informații privind reprezentarea cromozomilor și operatorii genetici din lucrarea: Pizzuti, Clara. "Evolutionary computation for community detection in networks: a review." IEEE Transactions on Evolutionary Computation 22.3 (2017): 464-483. link
+reteaua sociala dezvoltata semestrul trecut la MAP (cu construirea in prealabil a grafului corespunzator ei)
+cele 4 rețele / seturi de date din folderul asociat laboratorului current (in format GML – more details here)
+rețele / seturi de date identificate de student
+Aplicaţia (specificata, proiectata si implementata) trebuie să permită:
+
+Încărcarea datelor problemei
+Alegerea şi parametrizarea metodei de rezolvare a problemei
+Afişarea soluţiei identificate
+Precizarea performanţelor metodei de rezolvare alese
+Aplicația trebuie să respecte specificațiile privind datele de intrare și datele de ieșire.
+
+Aplicația va fi testată folosind date de difcultăți diferite (fiecare test validat având asociat un anumit punctaj).
+
+Datele de intrare sunt reprezentate de:
+
+graful retelei
+parametrii algoritmului
+Datele de iesire sunt reprezentate de:
+
+numarul de comunitati identificate in graf
+apartenenta la o anumita comunitate pentru fiecare nod al grafului/retelei
