@@ -16,8 +16,7 @@ public class RepoBoss implements IRepoBoss {
     @Override
     public Boss findByEmailAndPassword(String email, String password) {
         String query = "SELECT * FROM boss WHERE email=? AND password=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
@@ -37,8 +36,7 @@ public class RepoBoss implements IRepoBoss {
     @Override
     public Boss add(Boss entity) {
         String query = "INSERT INTO boss(name, email, password) VALUES(?,?,?)";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getEmail());
             statement.setString(3, entity.getPassword());
@@ -53,8 +51,7 @@ public class RepoBoss implements IRepoBoss {
     @Override
     public Boss delete(Integer integer) {
         String query = "DELETE FROM boss WHERE id = integer";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, integer);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -67,8 +64,7 @@ public class RepoBoss implements IRepoBoss {
     @Override
     public Boss update(Boss entity) {
         String query = "UPDATE boss SET name=?, email=?, password=? WHERE id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getEmail());
             statement.setString(3, entity.getPassword());
@@ -78,16 +74,51 @@ public class RepoBoss implements IRepoBoss {
             e.printStackTrace();
             System.out.println("Error: " + e);
         }
-            return null;
+        return null;
     }
 
     @Override
     public Boss findOne(Integer integer) {
+        String query = "SELECT * FROM boss WHERE id=?";
+        try (Connection connection = jdbc.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, integer);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                Boss boss = new Boss(name, email, password);
+                boss.setId(integer);
+                return boss;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e);
+        }
         return null;
     }
 
     @Override
     public Iterable<Boss> findAll() {
-        return null;
+        List<Boss> list = new ArrayList<>();
+        String query = "SELECT * FROM boss";
+        try (Connection connection = jdbc.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                Boss boss = new Boss(name, email, password);
+                boss.setId(id);
+                list.add(boss);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e);
+        }
+        return list;
     }
 }
