@@ -3,10 +3,12 @@ package com.example;
 public class TaskOfEmployee extends Entity<Integer> {
     private Integer employeeId;
     private Integer taskId;
+    private TaskStatus taskStatus;
 
-    public TaskOfEmployee(Integer employeeId, Integer taskId) {
+    public TaskOfEmployee(Integer employeeId, Integer taskId, TaskStatus taskStatus) {
         this.employeeId = employeeId;
         this.taskId = taskId;
+        this.taskStatus = taskStatus;
     }
 
     public Integer getEmployeeId() {
@@ -23,5 +25,13 @@ public class TaskOfEmployee extends Entity<Integer> {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 }

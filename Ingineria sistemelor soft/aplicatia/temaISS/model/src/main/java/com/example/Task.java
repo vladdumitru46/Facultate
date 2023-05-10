@@ -1,18 +1,17 @@
 package com.example;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Task extends Entity<Integer> {
     private String name;
     private String description;
-    private LocalDateTime deadline;
-    private TaskStatus taskStatus;
+    private LocalDate deadline;
 
-    public Task(String name, String description, LocalDateTime deadline, TaskStatus taskStatus) {
+
+    public Task(String name, String description, LocalDate deadline) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
-        this.taskStatus = taskStatus;
     }
 
     public String getName() {
@@ -31,19 +30,12 @@ public class Task extends Entity<Integer> {
         this.description = description;
     }
 
-    public LocalDateTime getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
-    }
-
-    public void setTaskStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
-    }
 }
