@@ -3,4 +3,6 @@ include 'model'
 include 'persistence'
 include 'service'
 include 'server'
+include 'networking'
+include 'client'
 
