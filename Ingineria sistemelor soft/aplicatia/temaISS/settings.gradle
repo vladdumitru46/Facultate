@@ -1,3 +1,4 @@
 rootProject.name = "temaISS"
 include 'model'
+include 'persistence'
 
