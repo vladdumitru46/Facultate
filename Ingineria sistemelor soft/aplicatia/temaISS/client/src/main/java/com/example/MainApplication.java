@@ -54,7 +54,7 @@ public class MainApplication extends Application {
         mainPage.setService(service);
 
 
-        FXMLLoader fLoaderEmployee = new FXMLLoader(getClass().getResource("/employeeArivalPage.fxml"));
+        FXMLLoader fLoaderEmployee = new FXMLLoader(getClass().getResource("/employeeArrivalPage.fxml"));
         Parent parentEmployee = fLoaderEmployee.load();
         EmployeeArrivalPage mainPageEmployee = fLoaderEmployee.<EmployeeArrivalPage>getController();
         mainPageEmployee.setProxy(server);

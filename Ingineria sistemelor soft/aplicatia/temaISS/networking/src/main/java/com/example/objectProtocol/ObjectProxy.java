@@ -142,9 +142,9 @@ public class ObjectProxy implements IService {
         try {
             connection = new Socket(host, port);
             outputStream = new ObjectOutputStream(connection.getOutputStream());
-            outputStream.flush();
+//            outputStream.flush();
             inputStream = new ObjectInputStream(connection.getInputStream());
-            finished = true;
+            finished = false;
             startReader();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -191,7 +191,6 @@ public class ObjectProxy implements IService {
                 try {
                     Object response = inputStream.readObject();
                     if (response instanceof UpdateResponse) {
-                        System.out.println("run in proxy");
                         handleUpdate((UpdateResponse) response);
                     } else {
                         try {

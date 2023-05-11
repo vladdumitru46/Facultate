@@ -7,6 +7,7 @@ import com.example.interfaces.IRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,14 +18,24 @@ public class Service implements IService {
     private final IRepository<Task, Integer> repoTask;
     private final IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee;
 
-    private Map<Integer, IServiceObserver> observerMap;
-    private Map<Integer, IServiceObserver> observerMapBoss;
+    private final Map<Integer, IServiceObserver> observerMap;
+    private final Map<Integer, IServiceObserver> observerMapBoss;
 
     public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee) {
         this.repoBoss = repoBoss;
         this.repoEmployee = repoEmployee;
         this.repoTask = repoTask;
         this.repoTaskOfEmployee = repoTaskOfEmployee;
+        observerMapBoss = new ConcurrentHashMap<>();
+        observerMap = new ConcurrentHashMap<>();
+    }
+
+    public Boss getBossByEmailAndPassword(String email, String password) {
+        return repoBoss.findByEmailAndPassword(email, password);
+    }
+
+    public Employee getEmployeeByEmailAndPassword(String email, String password) {
+        return repoEmployee.findByEmailAndPassword(email, password);
     }
 
     public void logInBoss(String email, String password, IServiceObserver client) throws Exception {
@@ -32,7 +43,8 @@ public class Service implements IService {
         if (boss == null) {
             throw new Exception("Email or password invalid!");
         } else {
-            observerMapBoss.put(boss.getId(), client);
+            System.out.println("aici crapi asai?");
+            this.observerMapBoss.put(boss.getId(), client);
         }
     }
 
