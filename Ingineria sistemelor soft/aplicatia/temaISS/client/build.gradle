@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'application'
 }
 
 group 'com.example'
@@ -8,7 +10,10 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
-
+javafx {
+    version = '19.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
 dependencies {
     implementation project(':model');
     implementation project(':persistence');
@@ -20,4 +25,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+
+application {
+    mainClassName = 'com.example.MainApplication'
 }
