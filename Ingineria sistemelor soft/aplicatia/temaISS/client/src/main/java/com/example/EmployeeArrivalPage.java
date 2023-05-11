@@ -1,9 +1,12 @@
 package com.example;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 public class EmployeeArrivalPage implements IServiceObserver {
+    BossMainPage bossClient;
+
     public void onPresentPush(ActionEvent actionEvent) {
     }
 
@@ -15,7 +18,11 @@ public class EmployeeArrivalPage implements IServiceObserver {
 
     @Override
     public void employeeLogIn(Employee employee) {
-
+        System.out.println("intrii ba in pula mea in functie??!?!?!??!!");
+        Platform.runLater(() -> {
+            System.out.println(employee.getName());
+            this.bossClient.listView.appendText(employee.getName());
+        });
     }
 
     @Override
@@ -32,5 +39,9 @@ public class EmployeeArrivalPage implements IServiceObserver {
     }
 
     public void setLogInStage(Stage stage) {
+    }
+
+    public void setBossClient(BossMainPage bossClient) {
+        this.bossClient = bossClient;
     }
 }

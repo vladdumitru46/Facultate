@@ -1,11 +1,18 @@
 package com.example;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
 
 public class BossMainPage implements IServiceObserver {
     Stage stage;
     Stage logInStage;
+
+    @FXML
+    public TextArea listView;
 
     public void onSendTaskButton(ActionEvent actionEvent) {
     }
@@ -28,6 +35,9 @@ public class BossMainPage implements IServiceObserver {
 
     @Override
     public void employeeLogIn(Employee employee) {
+        Platform.runLater(() -> {
+            System.out.println("INTRA IN PULA MEA AICI!!!!!!");
+        });
 
     }
 

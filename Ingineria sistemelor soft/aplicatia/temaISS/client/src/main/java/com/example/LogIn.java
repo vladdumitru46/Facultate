@@ -22,10 +22,12 @@ public class LogIn {
     private Parent bossMainePageParent;
     private Parent employeeMainePageParent;
     private Scene scene;
+    private Scene scene2;
 
     public void onLogInPush(ActionEvent actionEvent) {
         Boss boss = service.getBossByEmailAndPassword(emailTF.getText(), passwordTF.getText());
         if (boss != null) {
+            System.out.println("Nu e null!");
             try {
                 serviceProxy.logInBoss(emailTF.getText(), passwordTF.getText(), bossClient);
                 Stage mainStage = new Stage();
@@ -42,12 +44,14 @@ public class LogIn {
                 alert.show();
             }
         } else {
+            System.out.println("e null");
             try {
                 Employee employee = service.getEmployeeByEmailAndPassword(emailTF.getText(), passwordTF.getText());
-                serviceProxy.logInEmployee(emailTF.toString(), passwordTF.toString(), employeeClient);
+                serviceProxy.logInEmployee(emailTF.getText(), passwordTF.getText(), employeeClient);
                 Stage mainStage = new Stage();
                 mainStage.setTitle(employee.getName());
-                mainStage.setScene(scene);
+                mainStage.setScene(scene2);
+                employeeClient.setBossClient(bossClient);
                 employeeClient.setStage(mainStage);
                 employeeClient.setLogInStage(stage);
                 mainStage.show();
@@ -84,6 +88,6 @@ public class LogIn {
 
     public void setParentEmployee(Parent parentEmployee) {
         this.employeeMainePageParent = parentEmployee;
-        this.scene = new Scene(employeeMainePageParent);
+        this.scene2 = new Scene(employeeMainePageParent);
     }
 }

@@ -62,7 +62,7 @@ public class Service implements IService {
         notifyBossEmployeeLogOut(employee);
     }
 
-    public void logInEmployee(String email, String password, IServiceObserver client) throws Exception {
+    public synchronized void logInEmployee(String email, String password, IServiceObserver client) throws Exception {
         Employee employee = repoEmployee.findByEmailAndPassword(email, password);
         if (employee != null) {
             if (observerMap.get(employee.getId()) != null) {
@@ -76,19 +76,20 @@ public class Service implements IService {
     }
 
     private void notifyBossEmployeeLogIn(Employee employee) {
+        System.out.println("intrii in notify?");
         List<Employee> employees = (List<Employee>) repoEmployee.findAll();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        for (var em : employees) {
-            IServiceObserver client = observerMapBoss.get(em.getId());
-            if (client != null) {
-                executorService.execute(() -> {
-                    try {
-                        client.employeeLogIn(employee);
-                    } catch (Exception e) {
-                        System.out.println("Error on employee log in!");
-                    }
-                });
-            }
+        IServiceObserver client = observerMapBoss.get(1);
+        if (client != null) {
+            System.out.println("Da intrii aici??");
+            executorService.execute(() -> {
+                try {
+                    System.out.println("BOSS: " + client);
+                    client.employeeLogIn(employee);
+                } catch (Exception e) {
+                    System.out.println("Error on employee log in!");
+                }
+            });
         }
         executorService.shutdown();
     }
