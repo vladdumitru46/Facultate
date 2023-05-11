@@ -4,6 +4,8 @@ import com.example.interfaces.IRepoBoss;
 import com.example.interfaces.IRepoEmployee;
 import com.example.interfaces.IRepository;
 
+import java.util.List;
+
 public class Service implements IService {
 
     private final IRepoBoss repoBoss;
@@ -18,12 +20,27 @@ public class Service implements IService {
         this.repoTaskOfEmployee = repoTaskOfEmployee;
     }
 
-    public Boss logInBoss(String email, String password) {
-        return repoBoss.findByEmailAndPassword(email, password);
+    public void logInBoss(String email, String password, IServiceObserver client) {
+        repoBoss.findByEmailAndPassword(email, password);
     }
 
-    public Employee logInEmployee(String email, String password) {
-        return repoEmployee.findByEmailAndPassword(email, password);
+    @Override
+    public void logOutBoss(Boss boss, IServiceObserver client) {
+
+    }
+
+    @Override
+    public void logOutEmployee(Employee employee, IServiceObserver client) {
+
+    }
+
+    public void logInEmployee(String email, String password, IServiceObserver client) {
+        repoEmployee.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public List<Employee> getLoggedInEmployees(Boss boss) {
+        return null;
     }
 
     public Task addTask(Task task) {
@@ -34,8 +51,8 @@ public class Service implements IService {
         return repoTask.findOne(id);
     }
 
-    public TaskOfEmployee addTaskOfEmployees(TaskOfEmployee task) {
-        return repoTaskOfEmployee.add(task);
+    public void addTaskOfEmployees(TaskOfEmployee task) {
+        repoTaskOfEmployee.add(task);
     }
 
     public TaskOfEmployee updateTaskOfEmployees(TaskOfEmployee task) {
