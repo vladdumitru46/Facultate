@@ -17,6 +17,7 @@ javafx {
 dependencies {
     implementation project(':model');
     implementation project(':persistence');
+    implementation project(':networking');
     implementation project(':server');
     implementation project(':service');
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

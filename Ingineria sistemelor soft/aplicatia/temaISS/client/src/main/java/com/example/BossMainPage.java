@@ -13,6 +13,12 @@ public class BossMainPage {
     }
 
     public void onSendPush(ActionEvent actionEvent) {
-        
+
+    }
+
+    public void setProxy(IService server) {
+    }
+
+    public void setService(Service service) {
     }
 }
