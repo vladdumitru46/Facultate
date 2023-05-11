@@ -77,19 +77,20 @@ public class Service implements IService {
 
     private void notifyBossEmployeeLogIn(Employee employee) {
         System.out.println("intrii in notify?");
-        List<Employee> employees = (List<Employee>) repoEmployee.findAll();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         IServiceObserver client = observerMapBoss.get(1);
         if (client != null) {
-            System.out.println("Da intrii aici??");
-            executorService.execute(() -> {
-                try {
-                    System.out.println("BOSS: " + client);
-                    client.employeeLogIn(employee);
-                } catch (Exception e) {
-                    System.out.println("Error on employee log in!");
-                }
-            });
+            for (var i : observerMap.values()) {
+                System.out.println("Da intrii aici??");
+                executorService.execute(() -> {
+                    try {
+                        System.out.println("BOSS: " + i);
+                        i.employeeLogIn(employee);
+                    } catch (Exception e) {
+                        System.out.println("Error on employee log in!");
+                    }
+                });
+            }
         }
         executorService.shutdown();
     }
