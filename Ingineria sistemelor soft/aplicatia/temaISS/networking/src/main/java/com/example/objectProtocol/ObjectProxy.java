@@ -14,6 +14,7 @@ public class ObjectProxy implements IService {
     private final String host;
     private final int port;
     private IServiceObserver client;
+    private IServiceObserverBoss clientBoss;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private Socket connection;
@@ -28,14 +29,14 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public void logInBoss(String email, String password, IServiceObserver client) throws Exception {
+    public void logInBoss(String email, String password, IServiceObserverBoss client) throws Exception {
         initializeConnection();
         RepoBoss repoBoss = new RepoBoss();
         Boss boss = repoBoss.findByEmailAndPassword(email, password);
         sendRequest(new LogInRequestBoss(boss));
         Response response = readResponse();
         if (response instanceof OkResponse) {
-            this.client = client;
+            this.clientBoss = client;
             return;
         }
         if (response instanceof ErrorResponse errorResponse) {
@@ -45,7 +46,7 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public void logOutBoss(Boss boss, IServiceObserver client) throws Exception {
+    public void logOutBoss(Boss boss, IServiceObserverBoss client) throws Exception {
         sendRequest(new LogOutBossRequest(boss));
         Response response = readResponse();
         closeConnection();

@@ -18,9 +18,7 @@ public class LogIn {
     private TextField emailTF;
     @FXML
     private TextField passwordTF;
-    Stage stage = new Stage();
-    private Parent bossMainePageParent;
-    private Parent employeeMainePageParent;
+    private Stage stage = new Stage();
     private Scene scene;
     private Scene scene2;
 
@@ -78,8 +76,7 @@ public class LogIn {
     }
 
     public void setParent(Parent parent) {
-        this.bossMainePageParent = parent;
-        this.scene = new Scene(bossMainePageParent);
+        this.scene = new Scene(parent);
     }
 
     public void setClientEmployee(EmployeeArrivalPage mainPageEmployee) {
@@ -87,7 +84,6 @@ public class LogIn {
     }
 
     public void setParentEmployee(Parent parentEmployee) {
-        this.employeeMainePageParent = parentEmployee;
-        this.scene2 = new Scene(employeeMainePageParent);
+        this.scene2 = new Scene(parentEmployee);
     }
 }

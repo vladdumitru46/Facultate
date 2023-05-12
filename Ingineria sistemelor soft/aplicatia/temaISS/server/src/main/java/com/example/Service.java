@@ -19,7 +19,7 @@ public class Service implements IService {
     private final IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee;
 
     private final Map<Integer, IServiceObserver> observerMap;
-    private final Map<Integer, IServiceObserver> observerMapBoss;
+    private final Map<Integer, IServiceObserverBoss> observerMapBoss;
 
     public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee) {
         this.repoBoss = repoBoss;
@@ -38,18 +38,17 @@ public class Service implements IService {
         return repoEmployee.findByEmailAndPassword(email, password);
     }
 
-    public void logInBoss(String email, String password, IServiceObserver client) throws Exception {
+    public void logInBoss(String email, String password, IServiceObserverBoss client) throws Exception {
         Boss boss = repoBoss.findByEmailAndPassword(email, password);
         if (boss == null) {
             throw new Exception("Email or password invalid!");
         } else {
-            System.out.println("aici crapi asai?");
             this.observerMapBoss.put(boss.getId(), client);
         }
     }
 
     @Override
-    public void logOutBoss(Boss boss, IServiceObserver client) {
+    public void logOutBoss(Boss boss, IServiceObserverBoss client) {
         observerMapBoss.remove(boss.getId());
     }
 
@@ -78,7 +77,7 @@ public class Service implements IService {
     private void notifyBossEmployeeLogIn(Employee employee) {
         System.out.println("intrii in notify?");
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        IServiceObserver client = observerMapBoss.get(1);
+        IServiceObserverBoss client = observerMapBoss.get(1);
         if (client != null) {
             for (var i : observerMap.values()) {
                 System.out.println("Da intrii aici??");
@@ -99,7 +98,7 @@ public class Service implements IService {
         List<Employee> employees = (List<Employee>) repoEmployee.findAll();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (var em : employees) {
-            IServiceObserver client = observerMapBoss.get(em.getId());
+            IServiceObserverBoss client = observerMapBoss.get(em.getId());
             if (client != null) {
                 executorService.execute(() -> {
                     try {

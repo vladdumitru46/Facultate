@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
-public class ObjectWorker implements Runnable, IServiceObserver {
+public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserverBoss {
 
     private final IService server;
     private final Socket connection;
@@ -135,6 +135,7 @@ public class ObjectWorker implements Runnable, IServiceObserver {
     public void employeeLogIn(Employee employee) {
         try {
             sendResponse(new EmployeeLoggedInResponse(employee));
+            System.out.println("am trimis response-ul!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

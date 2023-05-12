@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 
-public class BossMainPage implements IServiceObserver {
+public class BossMainPage implements IServiceObserverBoss {
     Stage stage;
     Stage logInStage;
 
