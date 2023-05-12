@@ -27,7 +27,7 @@ public class RepoTask implements IRepository<Task, Integer> {
 
     @Override
     public Task delete(Integer integer) {
-        String query = "DELETE FROM task WHERE id = integer";
+        String query = "DELETE FROM task WHERE id = ?";
         try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, integer);
             statement.executeUpdate();

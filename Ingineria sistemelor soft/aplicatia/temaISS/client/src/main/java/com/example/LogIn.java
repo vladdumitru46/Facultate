@@ -50,7 +50,6 @@ public class LogIn {
             System.out.println("e null");
 
             Employee employee = service.getEmployeeByEmailAndPassword(emailTF.getText(), passwordTF.getText());
-//                serviceProxy.logInEmployee(emailTF.getText(), passwordTF.getText(), employeeClient);
             if (employee != null) {
                 Stage mainStage = new Stage();
                 mainStage.setTitle(employee.getName());

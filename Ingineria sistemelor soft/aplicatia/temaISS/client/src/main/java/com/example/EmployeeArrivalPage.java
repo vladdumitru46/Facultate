@@ -33,7 +33,6 @@ public class EmployeeArrivalPage {
         service.addEmployeeToWork(employeeArrivalPage);
         try {
             serviceProxy.logInEmployee(employee.getEmail(), employee.getPassword(), employeeClient);
-
             Stage mainStage = new Stage();
             mainStage.setTitle(employee.getName());
             mainStage.setScene(scene2);

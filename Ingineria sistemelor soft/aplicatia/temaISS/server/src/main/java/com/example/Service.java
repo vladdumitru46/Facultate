@@ -71,7 +71,6 @@ public class Service implements IService {
                 throw new Exception("Employee already logged in!");
             }
             observerMap.put(employee.getId(), client);
-            System.out.println("S-a logat: " + employee.getId() + " si observer map are: " + observerMap.size());
             notifyBossEmployeeLogIn(employee);
         } else {
             throw new Exception("Email or password invalid!");
@@ -119,16 +118,22 @@ public class Service implements IService {
         List<EmployeeAndArrivalTime> employees = (List<EmployeeAndArrivalTime>) employeeAndArrivalTimeIntegerIRepository.findAll();
         List<EmployeeAndArrivalTime> result = new ArrayList<>();
         for (var em : employees) {
-            if (observerMap.containsKey(em.getId())) {
+            if (observerMap.containsKey(em.getEmployeeId())) {
                 result.add(em);
             }
         }
+        System.out.println(result);
         return result;
     }
 
     public Task addTask(Task task) {
         return repoTask.add(task);
     }
+
+    public Employee findEmployeeById(Integer id) {
+        return repoEmployee.findOne(id);
+    }
+
 
     public Task findTask(Integer id) {
         return repoTask.findOne(id);
@@ -158,6 +163,10 @@ public class Service implements IService {
 
     public EmployeeAndArrivalTime addEmployeeToWork(EmployeeAndArrivalTime employeeAndArrivalTime) {
         return employeeAndArrivalTimeIntegerIRepository.add(employeeAndArrivalTime);
+    }
+
+    public List<Task> getAllTasks() {
+        return (List<Task>) repoTask.findAll();
     }
 
     public EmployeeAndArrivalTime deleteEmployeeFromWork(Integer id) {

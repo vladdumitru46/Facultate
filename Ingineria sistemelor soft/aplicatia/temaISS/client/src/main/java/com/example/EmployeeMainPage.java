@@ -1,5 +1,6 @@
 package com.example;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class EmployeeMainPage implements IServiceObserver {
@@ -15,7 +16,9 @@ public class EmployeeMainPage implements IServiceObserver {
 
     @Override
     public void receivedTask(TaskOfEmployee taskOfEmployee) {
-
+        Platform.runLater(() -> {
+            System.out.println("Sunt unde exact trebe");
+        });
     }
 
     public void setBossClient(BossMainPage bossClient) {

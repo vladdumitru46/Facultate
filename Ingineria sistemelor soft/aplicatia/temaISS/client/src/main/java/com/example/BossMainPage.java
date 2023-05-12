@@ -5,7 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -20,7 +23,16 @@ public class BossMainPage implements IServiceObserverBoss {
     Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
 
     @FXML
-    public ListView<EmployeeAndArrivalTime> listView;
+    public ListView<String> listView;
+
+    @FXML
+    TextField titleTF;
+
+    @FXML
+    TextArea descriptionTF;
+
+    @FXML
+    DatePicker deadlineTF;
 
     public void onSendTaskButton(ActionEvent actionEvent) {
     }
@@ -31,8 +43,16 @@ public class BossMainPage implements IServiceObserverBoss {
     public void onActionsPush(ActionEvent actionEvent) {
     }
 
-    public void onSendPush(ActionEvent actionEvent) {
-
+    public void onSendPush(ActionEvent actionEvent) throws Exception {
+        Task task = new Task(titleTF.getText(), descriptionTF.getText(), deadlineTF.getValue());
+        service.addTask(task);
+        List<Task> list = service.getAllTasks();
+        task = list.get(list.size() - 1);
+        System.out.println(task.getId() + " IDDDD");
+        String employee = listView.getSelectionModel().getSelectedItems().toString();
+        Integer id = Character.getNumericValue(employee.charAt(1));
+        TaskOfEmployee taskOfEmployee = new TaskOfEmployee(id, task.getId(), TaskStatus.SENT);
+        serverProxy.addTaskOfEmployees(taskOfEmployee);
     }
 
     public void setProxy(IService server) {
@@ -45,13 +65,14 @@ public class BossMainPage implements IServiceObserverBoss {
     @Override
     public void employeeLogIn(Employee employee) {
         Platform.runLater(() -> {
-            List<EmployeeAndArrivalTime> employeeList = null;
             try {
-                employeeList = serverProxy.getLoggedInEmployees(boss);
-                ObservableList<EmployeeAndArrivalTime> observableList = FXCollections.observableArrayList();
-                System.out.println(employeeList);
+                List<EmployeeAndArrivalTime> employeeList = serverProxy.getLoggedInEmployees(boss);
+                ObservableList<String> observableList = FXCollections.observableArrayList();
+                for (var em : employeeList) {
+                    String string = convertEmployeeToString(em);
+                    observableList.add(string);
+                }
                 listView.getItems().clear();
-                observableList.addAll(employeeList);
                 listView.getItems().setAll(observableList);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -78,14 +99,23 @@ public class BossMainPage implements IServiceObserverBoss {
         this.logInStage = stage;
     }
 
+    public String convertEmployeeToString(EmployeeAndArrivalTime employeeAndArrivalTime) {
+        String stringOfEmployee = "";
+        Employee employee = service.findEmployeeById(employeeAndArrivalTime.getEmployeeId());
+        stringOfEmployee += employee.getId() + " " + employee.getName() + " arrived at: " + employeeAndArrivalTime.getLogInTime();
+        return stringOfEmployee;
+    }
+
     public void setLoggedEmployees() {
         try {
             System.out.println("sunt bine");
             List<EmployeeAndArrivalTime> employeeList = serverProxy.getLoggedInEmployees(boss);
-            ObservableList<EmployeeAndArrivalTime> observableList = FXCollections.observableArrayList();
-            System.out.println(employeeList);
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+            for (var em : employeeList) {
+                String string = convertEmployeeToString(em);
+                observableList.add(string);
+            }
             listView.getItems().clear();
-            observableList.addAll(employeeList);
             listView.getItems().setAll(observableList);
         } catch (Exception e) {
             e.printStackTrace();
