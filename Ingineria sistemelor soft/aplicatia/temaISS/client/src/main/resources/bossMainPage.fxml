@@ -20,6 +20,7 @@
                         <Button fx:id="employeePerformancesButton" layoutX="422.0" layoutY="159.0" mnemonicParsing="false" onAction="#onEmployeePerformancesPush" text="employee performances" />
                         <Button fx:id="actionsButton" layoutX="425.0" layoutY="251.0" mnemonicParsing="false" onAction="#onActionsPush" text="actions on employee" />
                   <ListView fx:id="listView" layoutX="14.0" layoutY="20.0" prefHeight="324.0" prefWidth="350.0" />
+                  <Button fx:id="closeButton" layoutX="462.0" layoutY="304.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
                     </children>
                 </AnchorPane>
             </content>

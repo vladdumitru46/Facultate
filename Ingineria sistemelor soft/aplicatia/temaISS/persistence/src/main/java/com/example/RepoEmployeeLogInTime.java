@@ -1,12 +1,12 @@
 package com.example;
 
-import com.example.interfaces.IRepository;
+import com.example.interfaces.IRepoEmployeeLogInTime;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoEmployeeLogInTime implements IRepository<EmployeeAndArrivalTime, Integer> {
+public class RepoEmployeeLogInTime implements IRepoEmployeeLogInTime {
     private final JDBC jdbc = new JDBC();
 
 
@@ -80,5 +80,27 @@ public class RepoEmployeeLogInTime implements IRepository<EmployeeAndArrivalTime
             System.out.println("Error: " + e);
         }
         return list;
+    }
+
+    @Override
+    public EmployeeAndArrivalTime findByEmployeeId(Integer id) {
+        String query = "SELECT * FROM employee_log_in_time WHERE employee_id=?";
+        try (Connection connection = jdbc.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Integer idT = resultSet.getInt("id");
+                Integer idTask = resultSet.getInt("task_id");
+                Time time = resultSet.getTime("log_in_time");
+                EmployeeAndArrivalTime task = new EmployeeAndArrivalTime(id, idTask, time.toLocalTime());
+                task.setId(idT);
+                return task;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e);
+        }
+        return null;
     }
 }

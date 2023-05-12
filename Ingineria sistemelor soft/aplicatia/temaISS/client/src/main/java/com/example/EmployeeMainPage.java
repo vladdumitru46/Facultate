@@ -3,6 +3,7 @@ package com.example;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,7 +21,7 @@ public class EmployeeMainPage implements IServiceObserver {
     @FXML
     TableView<Task> tableView;
 
-    private ObservableList<Task> observableList = FXCollections.observableArrayList();
+    private final ObservableList<Task> observableList = FXCollections.observableArrayList();
 
     @FXML
     TableColumn<Task, Integer> name;
@@ -28,6 +29,7 @@ public class EmployeeMainPage implements IServiceObserver {
     TableColumn<Task, Integer> description;
     @FXML
     TableColumn<Task, Date> deadline;
+    private Stage stage;
 
     public void initializeV() {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -65,6 +67,7 @@ public class EmployeeMainPage implements IServiceObserver {
     }
 
     public void setStage(Stage mainStage) {
+        this.stage = mainStage;
     }
 
     public void setLogInStage(Stage stage) {
@@ -79,4 +82,18 @@ public class EmployeeMainPage implements IServiceObserver {
     public void setEmployeeToWork(EmployeeAndArrivalTime employeeArrivalPage) {
         this.employee = employeeArrivalPage;
     }
+
+    public void OnClosePush(ActionEvent actionEvent) {
+        try {
+            Employee employee1 = service.findEmployeeById(employee.getEmployeeId());
+            System.out.println(employee1.getName());
+            service.logOutEmployee(employee1, this);
+            service.deleteEmployeeFromWork(employee.getId());
+            stage.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.exit(0);
+    }
 }
+

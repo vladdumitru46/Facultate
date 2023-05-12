@@ -125,4 +125,10 @@ public class BossMainPage implements IServiceObserverBoss {
     public void setBoss(Boss boss) {
         this.boss = boss;
     }
+
+    public void onClosePush(ActionEvent actionEvent) {
+        service.logOutBoss(boss, this);
+        System.exit(0);
+        stage.close();
+    }
 }

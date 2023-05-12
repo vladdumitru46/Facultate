@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.interfaces.IRepoBoss;
-import com.example.interfaces.IRepoEmployee;
-import com.example.interfaces.IRepoTaskOfEmployee;
-import com.example.interfaces.IRepository;
+import com.example.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +16,12 @@ public class Service implements IService {
     private final IRepository<Task, Integer> repoTask;
     private final IRepoTaskOfEmployee repoTaskOfEmployee;
 
-    private final IRepository<EmployeeAndArrivalTime, Integer> employeeAndArrivalTimeIntegerIRepository;
+    private final IRepoEmployeeLogInTime employeeAndArrivalTimeIntegerIRepository;
 
     private final Map<Integer, IServiceObserver> observerMap;
     private final Map<Integer, IServiceObserverBoss> observerMapBoss;
 
-    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepoTaskOfEmployee repoTaskOfEmployee, IRepository<EmployeeAndArrivalTime, Integer> employeeLogInTime) {
+    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepoTaskOfEmployee repoTaskOfEmployee, IRepoEmployeeLogInTime employeeLogInTime) {
         this.repoBoss = repoBoss;
         this.repoEmployee = repoEmployee;
         this.repoTask = repoTask;
@@ -56,15 +53,6 @@ public class Service implements IService {
         observerMapBoss.remove(boss.getId());
     }
 
-    @Override
-    public void logOutEmployee(Employee employee, IServiceObserver client) throws Exception {
-        IServiceObserver localClient = observerMap.remove(employee.getId());
-        if (localClient == null) {
-            throw new Exception("Employee " + employee.getId() + " is not logged in!");
-        }
-        notifyBossEmployeeLogOut(employee);
-    }
-
     public synchronized void logInEmployee(String email, String password, IServiceObserver client) throws Exception {
         Employee employee = repoEmployee.findByEmailAndPassword(email, password);
         if (employee != null) {
@@ -72,21 +60,29 @@ public class Service implements IService {
                 throw new Exception("Employee already logged in!");
             }
             observerMap.put(employee.getId(), client);
+            System.out.println("OBSERVER MAP LOGIN: " + observerMap);
             notifyBossEmployeeLogIn(employee);
         } else {
             throw new Exception("Email or password invalid!");
         }
     }
 
+    @Override
+    public void logOutEmployee(Employee employee, IServiceObserver client) throws Exception {
+        System.out.println("OBSERVER MAP" + observerMap);
+        IServiceObserver localClient = observerMap.remove(employee.getId());
+        if (localClient == null) {
+            throw new Exception("Employee " + employee.getId() + " is not logged in!");
+        }
+        notifyBossEmployeeLogOut(employee);
+    }
+
     private void notifyBossEmployeeLogIn(Employee employee) {
-        System.out.println("intrii in notify?");
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         IServiceObserverBoss client = observerMapBoss.get(1);
         if (client != null) {
-            System.out.println("Da intrii aici??");
             executorService.execute(() -> {
                 try {
-                    System.out.println("BOSS: " + client);
                     client.employeeLogIn(employee);
                 } catch (Exception e) {
                     System.out.println("Error on employee log in!");
@@ -180,5 +176,9 @@ public class Service implements IService {
 
     public List<TaskOfEmployee> getTasksForEmployee(Integer id) {
         return repoTaskOfEmployee.findAllTasksForEmployee(id);
+    }
+
+    public EmployeeAndArrivalTime getEmployeeAndArrivalTimeByEmployeeId(Integer id) {
+        return employeeAndArrivalTimeIntegerIRepository.findByEmployeeId(id);
     }
 }
