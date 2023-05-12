@@ -33,6 +33,9 @@ public class LogIn {
                 mainStage.setScene(scene);
                 bossClient.setStage(mainStage);
                 bossClient.setLogInStage(stage);
+                bossClient.setLoggedEmployees();
+                bossClient.setProxy(serviceProxy);
+                bossClient.setBoss(boss);
                 mainStage.show();
                 stage.close();
             } catch (Exception e) {

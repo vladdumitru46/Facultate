@@ -21,7 +21,7 @@ public class EmployeeArrivalPage implements IServiceObserver {
         System.out.println("intrii ba in pula mea in functie??!?!?!??!!");
         Platform.runLater(() -> {
             System.out.println(employee.getName());
-            this.bossClient.listView.appendText(employee.getName());
+//            this.bossClient.listView.(employee.getName());
         });
     }
 

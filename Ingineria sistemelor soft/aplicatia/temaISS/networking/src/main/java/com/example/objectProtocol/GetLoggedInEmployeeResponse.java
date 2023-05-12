@@ -4,7 +4,7 @@ import com.example.Employee;
 
 import java.util.List;
 
-public class GetLoggedInEmployeeResponse {
+public class GetLoggedInEmployeeResponse implements Response {
 
     private List<Employee> list;
 

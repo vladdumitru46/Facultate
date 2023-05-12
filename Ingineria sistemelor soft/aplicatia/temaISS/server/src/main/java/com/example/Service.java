@@ -68,6 +68,7 @@ public class Service implements IService {
                 throw new Exception("Employee already logged in!");
             }
             observerMap.put(employee.getId(), client);
+            System.out.println("S-a logat: " + employee.getId() + " si observer map are: " + observerMap.size());
             notifyBossEmployeeLogIn(employee);
         } else {
             throw new Exception("Email or password invalid!");
@@ -79,17 +80,15 @@ public class Service implements IService {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         IServiceObserverBoss client = observerMapBoss.get(1);
         if (client != null) {
-            for (var i : observerMap.values()) {
-                System.out.println("Da intrii aici??");
-                executorService.execute(() -> {
-                    try {
-                        System.out.println("BOSS: " + i);
-                        i.employeeLogIn(employee);
-                    } catch (Exception e) {
-                        System.out.println("Error on employee log in!");
-                    }
-                });
-            }
+            System.out.println("Da intrii aici??");
+            executorService.execute(() -> {
+                try {
+                    System.out.println("BOSS: " + client);
+                    client.employeeLogIn(employee);
+                } catch (Exception e) {
+                    System.out.println("Error on employee log in!");
+                }
+            });
         }
         executorService.shutdown();
     }
