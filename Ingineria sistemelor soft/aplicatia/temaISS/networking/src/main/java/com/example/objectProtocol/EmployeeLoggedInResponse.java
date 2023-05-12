@@ -2,7 +2,7 @@ package com.example.objectProtocol;
 
 import com.example.Employee;
 
-public class EmployeeLoggedInResponse implements Response {
+public class EmployeeLoggedInResponse implements UpdateResponse {
     private final Employee employee;
 
     public EmployeeLoggedInResponse(Employee employee) {

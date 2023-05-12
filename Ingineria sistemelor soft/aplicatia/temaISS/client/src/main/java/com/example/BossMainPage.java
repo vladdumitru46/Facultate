@@ -45,7 +45,17 @@ public class BossMainPage implements IServiceObserverBoss {
     @Override
     public void employeeLogIn(Employee employee) {
         Platform.runLater(() -> {
-            System.out.println("INTRA IN PULA MEA AICI!!!!!!");
+            List<Employee> employeeList = null;
+            try {
+                employeeList = serverProxy.getLoggedInEmployees(boss);
+                ObservableList<Employee> observableList = FXCollections.observableArrayList();
+                System.out.println(employeeList);
+                listView.getItems().clear();
+                observableList.addAll(employeeList);
+                listView.getItems().setAll(observableList);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
 
     }
