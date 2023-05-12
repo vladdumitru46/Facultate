@@ -17,7 +17,7 @@ public class BossMainPage implements IServiceObserverBoss {
     IService serverProxy;
     Boss boss;
 
-    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee());
+    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
 
     @FXML
     public ListView<Employee> listView;

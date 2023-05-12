@@ -18,14 +18,17 @@ public class Service implements IService {
     private final IRepository<Task, Integer> repoTask;
     private final IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee;
 
+    private final IRepository<EmployeeAndArrivalTime, Integer> employeeAndArrivalTimeIntegerIRepository;
+
     private final Map<Integer, IServiceObserver> observerMap;
     private final Map<Integer, IServiceObserverBoss> observerMapBoss;
 
-    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee) {
+    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee, IRepository<EmployeeAndArrivalTime, Integer> employeeLogInTime) {
         this.repoBoss = repoBoss;
         this.repoEmployee = repoEmployee;
         this.repoTask = repoTask;
         this.repoTaskOfEmployee = repoTaskOfEmployee;
+        this.employeeAndArrivalTimeIntegerIRepository = employeeLogInTime;
         observerMapBoss = new ConcurrentHashMap<>();
         observerMap = new ConcurrentHashMap<>();
     }
@@ -151,5 +154,17 @@ public class Service implements IService {
 
     public Employee deleteEmployee(Integer id) {
         return repoEmployee.delete(id);
+    }
+
+    public EmployeeAndArrivalTime addEmployeeToWork(EmployeeAndArrivalTime employeeAndArrivalTime) {
+        return employeeAndArrivalTimeIntegerIRepository.add(employeeAndArrivalTime);
+    }
+
+    public EmployeeAndArrivalTime deleteEmployeeFromWork(Integer id) {
+        return employeeAndArrivalTimeIntegerIRepository.delete(id);
+    }
+
+    public List<EmployeeAndArrivalTime> getAllEmployeesFromWork() {
+        return (List<EmployeeAndArrivalTime>) employeeAndArrivalTimeIntegerIRepository.findAll();
     }
 }

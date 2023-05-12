@@ -39,7 +39,7 @@ public class MainApplication extends Application {
         System.out.println("Using server port " + serverPort);
 
         IService server = new ObjectProxy(serverIP, serverPort);
-        Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee());
+        Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/logIn.fxml"));

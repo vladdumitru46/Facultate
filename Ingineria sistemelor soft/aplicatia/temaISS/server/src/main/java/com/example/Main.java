@@ -20,7 +20,7 @@ public class Main {
             System.err.println("Cannot find properties " + e);
             return;
         }
-        Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee());
+        Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
         int serverPort = defaultPort;
         try {
             serverPort = Integer.parseInt(serverProperties.getProperty("server.port"));

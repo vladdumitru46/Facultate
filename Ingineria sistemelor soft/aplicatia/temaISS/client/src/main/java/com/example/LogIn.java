@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 
 public class LogIn {
-    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee());
+    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
     IService serviceProxy;
     BossMainPage bossClient;
     EmployeeArrivalPage employeeClient;
