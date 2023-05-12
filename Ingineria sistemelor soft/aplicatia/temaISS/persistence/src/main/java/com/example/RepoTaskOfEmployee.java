@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.interfaces.IRepository;
+import com.example.interfaces.IRepoTaskOfEmployee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoTaskOfEmployee implements IRepository<TaskOfEmployee, Integer> {
+public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
 
     private final JDBC jdbc = new JDBC();
 
@@ -85,6 +85,29 @@ public class RepoTaskOfEmployee implements IRepository<TaskOfEmployee, Integer> 
                 TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString("status"));
                 TaskOfEmployee task = new TaskOfEmployee(idEmployee, idTask, taskStatus);
                 task.setId(id);
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<TaskOfEmployee> findAllTasksForEmployee(Integer id) {
+        List<TaskOfEmployee> list = new ArrayList<>();
+        String query = "SELECT * FROM task_of_employees WHERE id=?";
+        try (Connection connection = jdbc.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Integer idT = resultSet.getInt("id");
+                Integer idTask = resultSet.getInt("id_task");
+                TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString("status"));
+                TaskOfEmployee task = new TaskOfEmployee(id, idTask, taskStatus);
+                task.setId(idT);
                 list.add(task);
             }
         } catch (SQLException e) {

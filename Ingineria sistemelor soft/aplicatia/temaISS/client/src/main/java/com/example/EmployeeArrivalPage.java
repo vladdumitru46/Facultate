@@ -1,11 +1,13 @@
 package com.example;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -40,6 +42,19 @@ public class EmployeeArrivalPage {
             employeeClient.setBossClient(bossClient);
             employeeClient.setStage(mainStage);
             employeeClient.setLogInStage(stage);
+            employeeClient.initializeV();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    try {
+                        service.logOutEmployee(employee, employeeClient);
+                        service.deleteEmployeeFromWork(employeeArrivalPage.getEmployeeId());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    System.exit(0);
+                }
+            });
             mainStage.show();
             stage.close();
         } catch (Exception e) {

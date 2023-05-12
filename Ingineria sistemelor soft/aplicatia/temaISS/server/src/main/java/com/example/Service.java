@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.interfaces.IRepoBoss;
 import com.example.interfaces.IRepoEmployee;
+import com.example.interfaces.IRepoTaskOfEmployee;
 import com.example.interfaces.IRepository;
 
 import java.util.ArrayList;
@@ -16,14 +17,14 @@ public class Service implements IService {
     private final IRepoBoss repoBoss;
     private final IRepoEmployee repoEmployee;
     private final IRepository<Task, Integer> repoTask;
-    private final IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee;
+    private final IRepoTaskOfEmployee repoTaskOfEmployee;
 
     private final IRepository<EmployeeAndArrivalTime, Integer> employeeAndArrivalTimeIntegerIRepository;
 
     private final Map<Integer, IServiceObserver> observerMap;
     private final Map<Integer, IServiceObserverBoss> observerMapBoss;
 
-    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepository<TaskOfEmployee, Integer> repoTaskOfEmployee, IRepository<EmployeeAndArrivalTime, Integer> employeeLogInTime) {
+    public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepoTaskOfEmployee repoTaskOfEmployee, IRepository<EmployeeAndArrivalTime, Integer> employeeLogInTime) {
         this.repoBoss = repoBoss;
         this.repoEmployee = repoEmployee;
         this.repoTask = repoTask;
@@ -175,5 +176,9 @@ public class Service implements IService {
 
     public List<EmployeeAndArrivalTime> getAllEmployeesFromWork() {
         return (List<EmployeeAndArrivalTime>) employeeAndArrivalTimeIntegerIRepository.findAll();
+    }
+
+    public List<TaskOfEmployee> getTasksForEmployee(Integer id) {
+        return repoTaskOfEmployee.findAllTasksForEmployee(id);
     }
 }
