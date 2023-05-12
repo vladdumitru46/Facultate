@@ -158,7 +158,6 @@ public class ObjectProxy implements IService {
     }
 
     private void handleUpdate(UpdateResponse updateResponse) {
-        System.out.println("sunt in handle!");
         System.out.println(updateResponse);
         if (updateResponse instanceof SendTaskResponse sendTaskResponse) {
             TaskOfEmployee task = sendTaskResponse.getTaskOfEmployee();
@@ -171,6 +170,7 @@ public class ObjectProxy implements IService {
         if (updateResponse instanceof EmployeeLoggedOutResponse employeeLoggedOutResponse) {
             Employee employee = employeeLoggedOutResponse.getEmployee();
             try {
+                System.out.println("Intrii aici?");
                 clientBoss.employeeLogOut(employee);
             } catch (Exception e) {
                 e.printStackTrace();

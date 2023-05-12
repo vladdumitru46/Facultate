@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,11 +16,11 @@ import java.util.List;
 
 
 public class EmployeeMainPage implements IServiceObserver {
-    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
-
+    Service service;
     EmployeeAndArrivalTime employee;
     @FXML
     TableView<Task> tableView;
+    IService serverProxy;
 
     private final ObservableList<Task> observableList = FXCollections.observableArrayList();
 
@@ -50,6 +51,8 @@ public class EmployeeMainPage implements IServiceObserver {
 
     @Override
     public void employeeLogOut(Employee employee) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.show();
 
     }
 
@@ -74,9 +77,11 @@ public class EmployeeMainPage implements IServiceObserver {
     }
 
     public void setProxy(IService server) {
+        this.serverProxy = server;
     }
 
     public void setService(Service service) {
+        this.service = service;
     }
 
     public void setEmployeeToWork(EmployeeAndArrivalTime employeeArrivalPage) {
@@ -86,9 +91,10 @@ public class EmployeeMainPage implements IServiceObserver {
     public void OnClosePush(ActionEvent actionEvent) {
         try {
             Employee employee1 = service.findEmployeeById(employee.getEmployeeId());
+            EmployeeAndArrivalTime employeeAndArrivalTime = service.getEmployeeAndArrivalTimeByEmployeeId(employee1.getId());
             System.out.println(employee1.getName());
-            service.logOutEmployee(employee1, this);
-            service.deleteEmployeeFromWork(employee.getId());
+            serverProxy.logOutEmployee(employee1, this);
+            service.deleteEmployeeFromWork(employeeAndArrivalTime.getId());
             stage.close();
         } catch (Exception e) {
             throw new RuntimeException(e);

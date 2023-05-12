@@ -18,7 +18,7 @@ public class Service implements IService {
 
     private final IRepoEmployeeLogInTime employeeAndArrivalTimeIntegerIRepository;
 
-    private final Map<Integer, IServiceObserver> observerMap;
+    private static Map<Integer, IServiceObserver> observerMap;
     private final Map<Integer, IServiceObserverBoss> observerMapBoss;
 
     public Service(IRepoBoss repoBoss, IRepoEmployee repoEmployee, IRepository<Task, Integer> repoTask, IRepoTaskOfEmployee repoTaskOfEmployee, IRepoEmployeeLogInTime employeeLogInTime) {
@@ -93,19 +93,16 @@ public class Service implements IService {
     }
 
     private void notifyBossEmployeeLogOut(Employee employee) {
-        List<Employee> employees = (List<Employee>) repoEmployee.findAll();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        for (var em : employees) {
-            IServiceObserverBoss client = observerMapBoss.get(em.getId());
-            if (client != null) {
-                executorService.execute(() -> {
-                    try {
-                        client.employeeLogOut(employee);
-                    } catch (Exception e) {
-                        System.out.println("Error on employee log in!");
-                    }
-                });
-            }
+        IServiceObserverBoss client = observerMapBoss.get(1);
+        if (client != null) {
+            executorService.execute(() -> {
+                try {
+                    client.employeeLogOut(employee);
+                } catch (Exception e) {
+                    System.out.println("Error on employee log in!");
+                }
+            });
         }
         executorService.shutdown();
     }

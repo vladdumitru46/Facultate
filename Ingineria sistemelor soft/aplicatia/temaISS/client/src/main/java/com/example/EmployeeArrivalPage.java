@@ -13,8 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EmployeeArrivalPage {
-    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
-
+    Service service;
     BossMainPage bossClient;
     Employee employee;
     EmployeeMainPage employeeClient;
@@ -56,6 +55,7 @@ public class EmployeeArrivalPage {
     }
 
     public void setService(Service service) {
+        this.service = service;
     }
 
 

@@ -144,6 +144,7 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
     @Override
     public void employeeLogOut(Employee employee) {
         try {
+            System.out.println("E BINE AICI?");
             sendResponse(new EmployeeLoggedOutResponse(employee));
         } catch (IOException e) {
             throw new RuntimeException(e);

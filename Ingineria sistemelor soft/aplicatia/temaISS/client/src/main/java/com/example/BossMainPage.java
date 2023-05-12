@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -20,8 +17,7 @@ public class BossMainPage implements IServiceObserverBoss {
     IService serverProxy;
     Boss boss;
 
-    Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
-
+    Service service;
     @FXML
     public ListView<String> listView;
 
@@ -60,6 +56,7 @@ public class BossMainPage implements IServiceObserverBoss {
     }
 
     public void setService(Service service) {
+        this.service = service;
     }
 
     @Override
@@ -74,6 +71,7 @@ public class BossMainPage implements IServiceObserverBoss {
                 }
                 listView.getItems().clear();
                 listView.getItems().setAll(observableList);
+                listView.refresh();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -83,7 +81,23 @@ public class BossMainPage implements IServiceObserverBoss {
 
     @Override
     public void employeeLogOut(Employee employee) {
-
+        Platform.runLater(() -> {
+            try {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.show();
+                List<EmployeeAndArrivalTime> employeeList = serverProxy.getLoggedInEmployees(boss);
+                ObservableList<String> observableList = FXCollections.observableArrayList();
+                for (var em : employeeList) {
+                    String string = convertEmployeeToString(em);
+                    observableList.add(string);
+                }
+                listView.getItems().clear();
+                listView.getItems().setAll(observableList);
+                listView.refresh();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
