@@ -83,7 +83,7 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public List<Employee> getLoggedInEmployees(Boss boss) throws Exception {
+    public List<EmployeeAndArrivalTime> getLoggedInEmployees(Boss boss) throws Exception {
         sendRequest(new GetLoggedInEmployeesRequest(boss));
         Response response = readResponse();
         if (response instanceof ErrorResponse err) {

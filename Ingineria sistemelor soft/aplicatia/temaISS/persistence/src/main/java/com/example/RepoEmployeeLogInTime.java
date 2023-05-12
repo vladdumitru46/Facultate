@@ -68,8 +68,8 @@ public class RepoEmployeeLogInTime implements IRepository<EmployeeAndArrivalTime
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
-                Integer idEmployee = resultSet.getInt("id_employee");
-                Integer idTask = resultSet.getInt("id_task");
+                Integer idEmployee = resultSet.getInt("employee_id");
+                Integer idTask = resultSet.getInt("task_id");
                 Time logInTime = resultSet.getTime("log_in_time");
                 EmployeeAndArrivalTime task = new EmployeeAndArrivalTime(idEmployee, idTask, logInTime.toLocalTime());
                 task.setId(id);

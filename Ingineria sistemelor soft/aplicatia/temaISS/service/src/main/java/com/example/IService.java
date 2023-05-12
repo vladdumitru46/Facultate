@@ -11,7 +11,7 @@ public interface IService {
 
     void logInEmployee(String email, String password, IServiceObserver client) throws Exception;
 
-    List<Employee> getLoggedInEmployees(Boss boss) throws Exception;
+    List<EmployeeAndArrivalTime> getLoggedInEmployees(Boss boss) throws Exception;
 
     void addTaskOfEmployees(TaskOfEmployee task) throws Exception;
 

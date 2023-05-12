@@ -1,18 +1,18 @@
 package com.example.objectProtocol;
 
-import com.example.Employee;
+import com.example.EmployeeAndArrivalTime;
 
 import java.util.List;
 
 public class GetLoggedInEmployeeResponse implements Response {
 
-    private List<Employee> list;
+    private List<EmployeeAndArrivalTime> list;
 
-    public GetLoggedInEmployeeResponse(List<Employee> list) {
+    public GetLoggedInEmployeeResponse(List<EmployeeAndArrivalTime> list) {
         this.list = list;
     }
 
-    public List<Employee> getList() {
+    public List<EmployeeAndArrivalTime> getList() {
         return list;
     }
 }

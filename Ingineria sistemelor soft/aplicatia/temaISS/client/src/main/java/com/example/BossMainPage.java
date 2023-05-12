@@ -20,7 +20,7 @@ public class BossMainPage implements IServiceObserverBoss {
     Service service = new Service(new RepoBoss(), new RepoEmployee(), new RepoTask(), new RepoTaskOfEmployee(), new RepoEmployeeLogInTime());
 
     @FXML
-    public ListView<Employee> listView;
+    public ListView<EmployeeAndArrivalTime> listView;
 
     public void onSendTaskButton(ActionEvent actionEvent) {
     }
@@ -45,10 +45,10 @@ public class BossMainPage implements IServiceObserverBoss {
     @Override
     public void employeeLogIn(Employee employee) {
         Platform.runLater(() -> {
-            List<Employee> employeeList = null;
+            List<EmployeeAndArrivalTime> employeeList = null;
             try {
                 employeeList = serverProxy.getLoggedInEmployees(boss);
-                ObservableList<Employee> observableList = FXCollections.observableArrayList();
+                ObservableList<EmployeeAndArrivalTime> observableList = FXCollections.observableArrayList();
                 System.out.println(employeeList);
                 listView.getItems().clear();
                 observableList.addAll(employeeList);
@@ -81,8 +81,8 @@ public class BossMainPage implements IServiceObserverBoss {
     public void setLoggedEmployees() {
         try {
             System.out.println("sunt bine");
-            List<Employee> employeeList = serverProxy.getLoggedInEmployees(boss);
-            ObservableList<Employee> observableList = FXCollections.observableArrayList();
+            List<EmployeeAndArrivalTime> employeeList = serverProxy.getLoggedInEmployees(boss);
+            ObservableList<EmployeeAndArrivalTime> observableList = FXCollections.observableArrayList();
             System.out.println(employeeList);
             listView.getItems().clear();
             observableList.addAll(employeeList);

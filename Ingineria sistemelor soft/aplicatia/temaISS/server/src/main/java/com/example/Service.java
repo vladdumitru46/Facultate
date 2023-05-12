@@ -115,9 +115,9 @@ public class Service implements IService {
     }
 
     @Override
-    public List<Employee> getLoggedInEmployees(Boss boss) {
-        List<Employee> employees = (List<Employee>) repoEmployee.findAll();
-        List<Employee> result = new ArrayList<>();
+    public List<EmployeeAndArrivalTime> getLoggedInEmployees(Boss boss) {
+        List<EmployeeAndArrivalTime> employees = (List<EmployeeAndArrivalTime>) employeeAndArrivalTimeIntegerIRepository.findAll();
+        List<EmployeeAndArrivalTime> result = new ArrayList<>();
         for (var em : employees) {
             if (observerMap.containsKey(em.getId())) {
                 result.add(em);

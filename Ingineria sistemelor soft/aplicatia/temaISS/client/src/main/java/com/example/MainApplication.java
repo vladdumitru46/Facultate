@@ -60,12 +60,20 @@ public class MainApplication extends Application {
         mainPageEmployee.setProxy(server);
         mainPageEmployee.setService(service);
 
+        FXMLLoader fLoaderEmployeeMain = new FXMLLoader(getClass().getResource("/employeeMainPage.fxml"));
+        Parent parentEmployeeMain = fLoaderEmployeeMain.load();
+        EmployeeMainPage mainPageEmployeeMain = fLoaderEmployeeMain.<EmployeeMainPage>getController();
+        mainPageEmployeeMain.setProxy(server);
+        mainPageEmployeeMain.setService(service);
+
         logIn.setStage(stage);
         logIn.setProxy(server);
         logIn.setClient(mainPage);
         logIn.setClientEmployee(mainPageEmployee);
+        logIn.setClientEmployeeMain(mainPageEmployeeMain);
         logIn.setParent(parent);
         logIn.setParentEmployee(parentEmployee);
+        logIn.setParentEmployeeMain(parentEmployeeMain);
 
         Scene scene = new Scene(loader, 600, 400);
         stage.setTitle("Hello!");

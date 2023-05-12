@@ -111,7 +111,7 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
         if (request instanceof GetLoggedInEmployeesRequest getLoggedInEmployeesRequest) {
             Boss boss = getLoggedInEmployeesRequest.getBoss();
             try {
-                List<Employee> list = server.getLoggedInEmployees(boss);
+                List<EmployeeAndArrivalTime> list = server.getLoggedInEmployees(boss);
                 return new GetLoggedInEmployeeResponse(list);
             } catch (Exception e) {
                 return new ErrorResponse(e.getMessage());

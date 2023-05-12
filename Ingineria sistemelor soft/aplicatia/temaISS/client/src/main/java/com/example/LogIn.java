@@ -14,6 +14,7 @@ public class LogIn {
     IService serviceProxy;
     BossMainPage bossClient;
     EmployeeArrivalPage employeeClient;
+    EmployeeMainPage employeeClientMain;
     @FXML
     private TextField emailTF;
     @FXML
@@ -21,6 +22,7 @@ public class LogIn {
     private Stage stage = new Stage();
     private Scene scene;
     private Scene scene2;
+    private Scene scene3;
 
     public void onLogInPush(ActionEvent actionEvent) {
         Boss boss = service.getBossByEmailAndPassword(emailTF.getText(), passwordTF.getText());
@@ -46,21 +48,26 @@ public class LogIn {
             }
         } else {
             System.out.println("e null");
-            try {
-                Employee employee = service.getEmployeeByEmailAndPassword(emailTF.getText(), passwordTF.getText());
-                serviceProxy.logInEmployee(emailTF.getText(), passwordTF.getText(), employeeClient);
+
+            Employee employee = service.getEmployeeByEmailAndPassword(emailTF.getText(), passwordTF.getText());
+//                serviceProxy.logInEmployee(emailTF.getText(), passwordTF.getText(), employeeClient);
+            if (employee != null) {
                 Stage mainStage = new Stage();
                 mainStage.setTitle(employee.getName());
                 mainStage.setScene(scene2);
                 employeeClient.setBossClient(bossClient);
                 employeeClient.setStage(mainStage);
                 employeeClient.setLogInStage(stage);
+                employeeClient.setMainPage(employeeClientMain);
+                employeeClient.setEmployee(employee);
+                employeeClient.setProxy(serviceProxy);
+                employeeClient.setStageMain(scene3);
                 mainStage.show();
                 stage.close();
-            } catch (Exception e) {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Log in error");
-                alert.setHeaderText(e.getMessage());
+                alert.setHeaderText("Email or password invalid!");
                 alert.show();
             }
         }
@@ -88,5 +95,13 @@ public class LogIn {
 
     public void setParentEmployee(Parent parentEmployee) {
         this.scene2 = new Scene(parentEmployee);
+    }
+
+    public void setParentEmployeeMain(Parent parentEmployeeMain) {
+        this.scene3 = new Scene(parentEmployeeMain);
+    }
+
+    public void setClientEmployeeMain(EmployeeMainPage mainPageEmployeeMain) {
+        this.employeeClientMain = mainPageEmployeeMain;
     }
 }
