@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    img {
+        width: 150px;
+        height: auto;
+    }
+</style>
+<body>
+<table align="center" id="table">
+    <tr>
+        <td><img id="00" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="01" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="02" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="03" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+    </tr>
+    <tr>
+        <td><img id="10" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="11" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="12" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="13" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+    </tr>
+    <tr>
+        <td><img id="20" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="21" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="22" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="23" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+    </tr>
+    <tr>
+        <td><img id="30" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="31" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="32" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+        <td><img id="33" src="carteDeJoc.jpg" onclick="changeImage(this.id)"></td>
+    </tr>
+</table>
+<script>
+
+    const vector = ['11.png', '22.png', '33.png', '44.png', '55.png', '66.png', '77.png', '88.png','11.png', '22.png', '33.png', '44.png', '55.png', '66.png', '77.png', '88.png'];
+    function createMatrix() {
+        let m = new Array(4).fill(0).map(() => new Array(4).fill(0));
+        for (let i = vector.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [vector[i], vector[j]] = [vector[j], vector[i]];
+        }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                m[i][j] = vector.pop();
+            }
+        }
+        return m;
+    }
+
+    const mat = createMatrix();
+    let imag1 = null;
+    let imag2 = null;
+
+    function changeImage(id) {
+        let img1 = document.getElementById(id);
+        if (img1.src === 'http://localhost:63342/tema3/carteDeJoc.jpg') {
+            img1.src = mat[parseInt(img1.id[0])][parseInt(img1.id[1])];
+            if (imag1 == null) {
+                imag1 = img1;
+            } else {
+                imag2 = img1;
+            }
+            if (verifica(imag1, imag2) === 0) {
+                setTimeout(() => {
+                    imag1.src = 'carteDeJoc.jpg';
+                    imag2.src = 'carteDeJoc.jpg';
+
+                    imag1 = null;
+                    imag2 = null;
+                }, 1000);
+            } else {
+                imag1 = null;
+                imag2 = null;
+            }
+        }
+        else{
+            window.alert("Nu poti selecta o carte ghicita!");
+        }
+    }
+
+    function verifica(imag1, imag2) {
+        if (imag1.src !== imag2.src) {
+            return 0;
+        } else {
+            window.alert("DA");
+            return 1;
+        }
+    }
+</script>
+</body>
+</html>
