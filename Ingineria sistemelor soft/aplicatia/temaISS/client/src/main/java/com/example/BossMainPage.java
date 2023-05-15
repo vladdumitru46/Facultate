@@ -5,7 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -44,7 +47,6 @@ public class BossMainPage implements IServiceObserverBoss {
         service.addTask(task);
         List<Task> list = service.getAllTasks();
         task = list.get(list.size() - 1);
-        System.out.println(task.getId() + " IDDDD");
         String employee = listView.getSelectionModel().getSelectedItems().toString();
         Integer id = Character.getNumericValue(employee.charAt(1));
         TaskOfEmployee taskOfEmployee = new TaskOfEmployee(id, task.getId(), TaskStatus.SENT);
@@ -83,8 +85,6 @@ public class BossMainPage implements IServiceObserverBoss {
     public void employeeLogOut(Employee employee) {
         Platform.runLater(() -> {
             try {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.show();
                 List<EmployeeAndArrivalTime> employeeList = serverProxy.getLoggedInEmployees(boss);
                 ObservableList<String> observableList = FXCollections.observableArrayList();
                 for (var em : employeeList) {
