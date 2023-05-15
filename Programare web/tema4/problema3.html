@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    img {
+        width: 150px;
+        height: auto;
+    }
+</style>
+<body>
+<table align="center" id="table">
+    <tr>
+        <td><img id="00" src="carteDeJoc.jpg"></td>
+        <td><img id="01" src="carteDeJoc.jpg"></td>
+        <td><img id="02" src="carteDeJoc.jpg"></td>
+        <td><img id="03" src="carteDeJoc.jpg"></td>
+    </tr>
+    <tr>
+        <td><img id="10" src="carteDeJoc.jpg"></td>
+        <td><img id="11" src="carteDeJoc.jpg"></td>
+        <td><img id="12" src="carteDeJoc.jpg"></td>
+        <td><img id="13" src="carteDeJoc.jpg"></td>
+    </tr>
+    <tr>
+        <td><img id="20" src="carteDeJoc.jpg"></td>
+        <td><img id="21" src="carteDeJoc.jpg"></td>
+        <td><img id="22" src="carteDeJoc.jpg"></td>
+        <td><img id="23" src="carteDeJoc.jpg"></td>
+    </tr>
+    <tr>
+        <td><img id="30" src="carteDeJoc.jpg"></td>
+        <td><img id="31" src="carteDeJoc.jpg"></td>
+        <td><img id="32" src="carteDeJoc.jpg"></td>
+        <td><img id="33" src="carteDeJoc.jpg"></td>
+    </tr>
+</table>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    const vector = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png'];
+
+    function createMatrix() {
+        let m = new Array(4).fill(0).map(() => new Array(4).fill(0));
+        for (let i = vector.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [vector[i], vector[j]] = [vector[j], vector[i]];
+        }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                m[i][j] = vector.pop();
+            }
+        }
+        return m;
+    }
+
+    const mat = createMatrix();
+    let imag1 = null;
+    let imag2 = null;
+
+    $(document).ready(function () {
+        $("img", "table").click(function () {
+            const $img = $(this);
+            const id = $img.attr("id");
+            const imagSrc = $img.attr("src");
+            if (imagSrc === 'carteDeJoc.jpg') {
+                $($img).attr("src", mat[parseInt(id[0])][parseInt(id[1])]);
+                if (imag1 === null) {
+                    imag1 = $img;
+                } else {
+                    imag2 = $img;
+                }
+                if (imag1 !== null && imag2 !== null) {
+                    const imagSrc1 = imag1.attr("src");
+                    const imagSrc2 = imag2.attr("src");
+                    if (imagSrc1 === imagSrc2) {
+                        alert("Da");
+                        imag1 = null;
+                        imag2 = null;
+                    } else {
+                        setTimeout(() => {
+                            $(imag1).attr("src", 'carteDeJoc.jpg');
+                            $(imag2).attr("src", 'carteDeJoc.jpg');
+                            imag1 = null;
+                            imag2 = null;
+                        }, 1000);
+                    }
+                }
+            }else{
+                alert("Nu poti selecta o carte ghicita!");
+            }
+        });
+    });
+</script>
+</html>
