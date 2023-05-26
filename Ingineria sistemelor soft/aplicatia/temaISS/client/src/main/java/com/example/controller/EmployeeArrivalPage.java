@@ -1,5 +1,9 @@
-package com.example;
+package com.example.controller;
 
+import com.example.Employee;
+import com.example.EmployeeAndArrivalTime;
+import com.example.IService;
+import com.example.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

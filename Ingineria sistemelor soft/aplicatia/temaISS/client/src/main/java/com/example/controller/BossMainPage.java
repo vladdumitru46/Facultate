@@ -1,14 +1,12 @@
-package com.example;
+package com.example.controller;
 
+import com.example.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,11 +30,21 @@ public class BossMainPage implements IServiceObserverBoss {
 
     @FXML
     DatePicker deadlineTF;
+    @FXML
+    private TabPane mainPage;
+    @FXML
+    private Tab mainTab;
+    @FXML
+    private Tab sendTaskTab;
+    @FXML
+    private Tab performancesTab;
 
     public void onSendTaskButton(ActionEvent actionEvent) {
+        mainPage.getSelectionModel().select(sendTaskTab);
     }
 
     public void onEmployeePerformancesPush(ActionEvent actionEvent) {
+        mainPage.getSelectionModel().select(performancesTab);
     }
 
     public void onActionsPush(ActionEvent actionEvent) {
@@ -144,5 +152,8 @@ public class BossMainPage implements IServiceObserverBoss {
         service.logOutBoss(boss, this);
         System.exit(0);
         stage.close();
+    }
+
+    public void onRaisePush(ActionEvent actionEvent) {
     }
 }

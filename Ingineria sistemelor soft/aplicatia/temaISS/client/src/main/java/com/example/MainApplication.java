@@ -1,5 +1,9 @@
 package com.example;
 
+import com.example.controller.BossMainPage;
+import com.example.controller.EmployeeArrivalPage;
+import com.example.controller.EmployeeMainPage;
+import com.example.controller.LogIn;
 import com.example.objectProtocol.ObjectProxy;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

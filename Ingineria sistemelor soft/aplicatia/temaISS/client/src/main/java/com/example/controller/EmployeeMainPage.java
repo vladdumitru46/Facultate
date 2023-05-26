@@ -1,5 +1,6 @@
-package com.example;
+package com.example.controller;
 
+import com.example.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
