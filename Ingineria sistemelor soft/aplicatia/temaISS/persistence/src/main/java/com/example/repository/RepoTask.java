@@ -2,102 +2,106 @@ package com.example.repository;
 
 import com.example.Task;
 import com.example.interfaces.IRepository;
-import com.example.utils.JDBC;
+import com.example.utils.Factory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RepoTask implements IRepository<Task, Integer> {
-    private final JDBC jdbc = new JDBC();
-
     @Override
     public Task add(Task entity) {
-        String query = "INSERT INTO task(name, description, deadline) VALUES(?,?,?)";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getDescription());
-            statement.setDate(3, Date.valueOf(entity.getDeadline()));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                session.save(entity);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
         }
         return entity;
     }
 
     @Override
     public Task delete(Integer integer) {
-        String query = "DELETE FROM task WHERE id = ?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, integer);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        Task task = findOne(integer);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                Task criteria = session.createQuery("from Task where id = :entity", Task.class).setParameter("entity", integer).setMaxResults(1).uniqueResult();
+                session.delete(criteria);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
         }
-        return findOne(integer);
+        return task;
     }
 
     @Override
     public Task update(Task entity) {
-        String query = "UPDATE task SET name=?, description=?, deadline=? WHERE id=?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getDescription());
-            statement.setDate(3, Date.valueOf(entity.getDeadline()));
-            statement.setInt(4, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                Task task = session.load(Task.class, entity.getId());
+                task.setName(entity.getName());
+                task.setDescription(entity.getDescription());
+                task.setDeadline(entity.getDeadline());
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
         }
-        return null;
+        return entity;
     }
 
     @Override
     public Task findOne(Integer integer) {
-        String query = "SELECT * FROM task WHERE id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, integer);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                LocalDate date = resultSet.getDate("deadline").toLocalDate();
-                Task task = new Task(name, description, date);
-                task.setId(integer);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                Task task = session.createQuery("FROM Task WHERE id=:id", Task.class).
+                        setParameter("id", integer).setMaxResults(1).uniqueResult();
+                transaction.commit();
                 return task;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
         return null;
     }
 
     @Override
     public Iterable<Task> findAll() {
-        List<Task> list = new ArrayList<>();
-        String query = "SELECT * FROM task";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                LocalDate date = resultSet.getDate("deadline").toLocalDate();
-                Task task = new Task(name, description, date);
-                task.setId(id);
-                list.add(task);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                List<Task> list = session.createQuery("FROM Task", Task.class).stream().toList();
+                transaction.commit();
+                return list;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
-        return list;
+        return null;
     }
 }

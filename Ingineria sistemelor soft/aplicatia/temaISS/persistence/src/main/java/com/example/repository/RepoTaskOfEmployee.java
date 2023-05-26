@@ -1,122 +1,128 @@
 package com.example.repository;
 
 import com.example.TaskOfEmployee;
-import com.example.TaskStatus;
 import com.example.interfaces.IRepoTaskOfEmployee;
-import com.example.utils.JDBC;
+import com.example.utils.Factory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
 
-    private final JDBC jdbc = new JDBC();
 
     @Override
     public TaskOfEmployee add(TaskOfEmployee entity) {
-        String query = "INSERT INTO task_of_employees(id_employee, id_task, status) VALUES(?,?,?)";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, entity.getEmployeeId());
-            statement.setInt(2, entity.getTaskId());
-            statement.setString(3, String.valueOf(entity.getTaskStatus()));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                session.save(entity);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
         }
         return entity;
     }
 
     @Override
     public TaskOfEmployee delete(Integer integer) {
-        return null;
+        TaskOfEmployee taskOfEmployee = findOne(integer);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                TaskOfEmployee criteria = session.createQuery("from TaskOfEmployee where id = :entity", TaskOfEmployee.class).setParameter("entity", integer).setMaxResults(1).uniqueResult();
+                session.delete(criteria);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
+        }
+        return taskOfEmployee;
     }
 
     @Override
     public TaskOfEmployee update(TaskOfEmployee entity) {
-        String query = "UPDATE task_of_employees SET id_employee=?, id_task=?, status=? WHERE id=?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, entity.getEmployeeId());
-            statement.setInt(2, entity.getTaskId());
-            statement.setString(3, String.valueOf(entity.getTaskStatus()));
-            statement.setInt(4, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                TaskOfEmployee taskOfEmployee = session.load(TaskOfEmployee.class, entity.getId());
+                taskOfEmployee.setEmployeeId(entity.getEmployeeId());
+                taskOfEmployee.setTaskId(entity.getTaskId());
+                taskOfEmployee.setTaskStatus(entity.getTaskStatus());
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
         }
-        return null;
+        return entity;
     }
 
     @Override
     public TaskOfEmployee findOne(Integer integer) {
-        String query = "SELECT * FROM task_of_employees WHERE id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, integer);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Integer idEmployee = resultSet.getInt("id_employee");
-                Integer idTask = resultSet.getInt("id_task");
-                TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString("status"));
-                TaskOfEmployee task = new TaskOfEmployee(idEmployee, idTask, taskStatus);
-                task.setId(integer);
-                return task;
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                TaskOfEmployee taskOfEmployee = session.createQuery("FROM TaskOfEmployee WHERE id=:id", TaskOfEmployee.class).
+                        setParameter("id", integer).setMaxResults(1).uniqueResult();
+                transaction.commit();
+                return taskOfEmployee;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
         return null;
     }
 
     @Override
     public Iterable<TaskOfEmployee> findAll() {
-        List<TaskOfEmployee> list = new ArrayList<>();
-        String query = "SELECT * FROM task_of_employees";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                Integer idEmployee = resultSet.getInt("id_employee");
-                Integer idTask = resultSet.getInt("id_task");
-                TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString("status"));
-                TaskOfEmployee task = new TaskOfEmployee(idEmployee, idTask, taskStatus);
-                task.setId(id);
-                list.add(task);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                List<TaskOfEmployee> list = session.createQuery("FROM TaskOfEmployee", TaskOfEmployee.class).stream().toList();
+                transaction.commit();
+                return list;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
-        return list;
+        return null;
     }
 
     @Override
     public List<TaskOfEmployee> findAllTasksForEmployee(Integer id) {
-        List<TaskOfEmployee> list = new ArrayList<>();
-        String query = "SELECT * FROM task_of_employees WHERE id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Integer idT = resultSet.getInt("id");
-                Integer idTask = resultSet.getInt("id_task");
-                TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString("status"));
-                TaskOfEmployee task = new TaskOfEmployee(id, idTask, taskStatus);
-                task.setId(idT);
-                list.add(task);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                List<TaskOfEmployee> list = session.createQuery("FROM TaskOfEmployee where employeeId=:id", TaskOfEmployee.class).setParameter("id", id).stream().toList();
+                transaction.commit();
+                return list;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
-        return list;
+        return null;
     }
 }

@@ -19,6 +19,9 @@ public class Boss extends Entity<Integer> {
         this.password = password;
     }
 
+    public Boss() {
+    }
+
     public String getName() {
         return name;
     }

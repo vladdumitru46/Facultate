@@ -2,58 +2,70 @@ package com.example.repository;
 
 import com.example.EmployeeAndArrivalTime;
 import com.example.interfaces.IRepoEmployeeLogInTime;
-import com.example.utils.JDBC;
+import com.example.utils.Factory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RepoEmployeeLogInTime implements IRepoEmployeeLogInTime {
-    private final JDBC jdbc = new JDBC();
-
-
     @Override
     public EmployeeAndArrivalTime add(EmployeeAndArrivalTime entity) {
-        String query = "INSERT INTO employee_log_in_time(employee_id, task_id, log_in_time) VALUES(?,?,?)";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, entity.getEmployeeId());
-            statement.setInt(2, entity.getTaskId());
-            statement.setTime(3, Time.valueOf(entity.getLogInTime()));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                session.save(entity);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
         }
         return entity;
     }
 
     @Override
     public EmployeeAndArrivalTime delete(Integer integer) {
-        String query = "DELETE FROM employee_log_in_time WHERE id=?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, integer);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        EmployeeAndArrivalTime employeeAndArrivalTime = findOne(integer);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                EmployeeAndArrivalTime criteria = session.createQuery("from EmployeeAndArrivalTime where id = :entity", EmployeeAndArrivalTime.class).
+                        setParameter("entity", integer).setMaxResults(1).uniqueResult();
+                session.delete(criteria);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
         }
-        return null;
+        return employeeAndArrivalTime;
     }
 
     @Override
     public EmployeeAndArrivalTime update(EmployeeAndArrivalTime entity) {
-        String query = "UPDATE employee_log_in_time SET employee_id=?, task_id=?, log_in_time=? WHERE id=?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, entity.getEmployeeId());
-            statement.setInt(2, entity.getTaskId());
-            statement.setTime(3, Time.valueOf(entity.getLogInTime()));
-            statement.setInt(4, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                EmployeeAndArrivalTime employeeAndArrivalTime = session.load(EmployeeAndArrivalTime.class, entity.getId());
+                employeeAndArrivalTime.setEmployeeId(entity.getEmployeeId());
+                employeeAndArrivalTime.setTaskId(entity.getTaskId());
+                employeeAndArrivalTime.setLogInTime(entity.getLogInTime());
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
+            }
         }
-        return null;
+        return entity;
     }
 
     @Override
@@ -63,45 +75,38 @@ public class RepoEmployeeLogInTime implements IRepoEmployeeLogInTime {
 
     @Override
     public Iterable<EmployeeAndArrivalTime> findAll() {
-        List<EmployeeAndArrivalTime> list = new ArrayList<>();
-        String query = "SELECT * FROM employee_log_in_time";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                Integer idEmployee = resultSet.getInt("employee_id");
-                Integer idTask = resultSet.getInt("task_id");
-                Time logInTime = resultSet.getTime("log_in_time");
-                EmployeeAndArrivalTime task = new EmployeeAndArrivalTime(idEmployee, idTask, logInTime.toLocalTime());
-                task.setId(id);
-                list.add(task);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                List<EmployeeAndArrivalTime> list = session.createQuery("FROM EmployeeAndArrivalTime ", EmployeeAndArrivalTime.class).stream().toList();
+                transaction.commit();
+                return list;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
-        return list;
+        return null;
     }
 
     @Override
     public EmployeeAndArrivalTime findByEmployeeId(Integer id) {
-        String query = "SELECT * FROM employee_log_in_time WHERE employee_id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Integer idT = resultSet.getInt("id");
-                Integer idTask = resultSet.getInt("task_id");
-                Time time = resultSet.getTime("log_in_time");
-                EmployeeAndArrivalTime task = new EmployeeAndArrivalTime(id, idTask, time.toLocalTime());
-                task.setId(idT);
-                return task;
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                EmployeeAndArrivalTime employee = session.createQuery("FROM EmployeeAndArrivalTime WHERE employeeId=:id", EmployeeAndArrivalTime.class).
+                        setParameter("id", id).setMaxResults(1).uniqueResult();
+                transaction.commit();
+                return employee;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
         }
         return null;
     }

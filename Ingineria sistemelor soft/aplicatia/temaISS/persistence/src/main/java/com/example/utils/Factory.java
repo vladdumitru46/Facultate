@@ -12,6 +12,4 @@ public class Factory {
         return sessionFactory.openSession();
     }
 
-    public Factory() {
-    }
 }
