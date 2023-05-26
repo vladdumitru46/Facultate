@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>problema 2</title>
+</head>
+<style>
+    .green-border {
+        border: 2px solid green;
+    }
+
+    .red-border {
+        border: 2px solid red;
+    }
+</style>
+<body>
+<p>Nume: <label>
+    <input type="text" name="Nume" id="Nume">
+</label></p>
+Data nasterii: <label>
+    <input type="date" name="dataNasterii" id="DataNasterii">
+</label>
+<p>Varsta: <label>
+    <input type="text" name="varsta" id="Varsta">
+</label></p>
+<p>Email: <label>
+    <input type="text" name="email" id="Email">
+</label></p>
+<button id="button">Trimite!</button>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#button").click(function () {
+            const nume = $("#Nume");
+            const onlyLetters = /^[A-Za-z]/.test(nume.val());
+            let errorText = "";
+            if (onlyLetters) {
+                nume.addClass('green-border');
+            } else {
+                nume.addClass('red-border');
+                errorText += "Nume invalid!\n";
+            }
+            const varsta = $("#Varsta");
+            const onlyNumbers = /^[0-9]/.test(varsta.val());
+            let date = $("#DataNasterii");
+            if (onlyNumbers && varsta.val() >= 1 && varsta.val() <= 99) {
+                varsta.addClass('green-border');
+                date.addClass('green-border');
+            } else {
+                varsta.addClass('red-border');
+                date.addClass('red-border');
+                errorText += "Varsta invalida!\n";
+            }
+            let email = $("#Email");
+            if (email.val().includes("@") && email.val().includes(".") && email.val().charAt(email.val().indexOf("@") - 1).match(/[a-z]/i) && email.val().charAt(email.val().indexOf("@") + 1).match(/[a-z]/i) && email.val().charAt(email.val().indexOf(".") - 1).match(/[a-z]/i) && email.val().charAt(email.val().indexOf(".") + 1).match(/[a-z]/i)) {
+                email.addClass('green-border');
+            } else {
+                email.addClass("red-border");
+                errorText += "Email invalid!";
+            }
+            if (errorText.length === 0) {
+                alert("Totul e in regula!");
+            } else {
+                alert(errorText);
+            }
+        });
+    });
+</script>
+</html>

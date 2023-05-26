@@ -1,0 +1,42 @@
+header{
+    background-color : red;
+    height: 100px;
+    padding-top: 50px;
+    text-align: left;
+    font-size: 30px;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: yellow;
+    height: 25px;
+}
+li {
+    float: left;
+    border-right: 2px solid black;
+    font-size: 20px;
+    padding-left: 200px;
+    text-align: center;
+}
+
+div{
+    background-color: green;
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+h1{
+    padding-top: 250px;
+    padding-bottom: 360px;
+}
+footer{
+    background-color: pink;
+    height: 60px;
+    display: flex;
+}
+p{
+    font-size: 50px;
+}
