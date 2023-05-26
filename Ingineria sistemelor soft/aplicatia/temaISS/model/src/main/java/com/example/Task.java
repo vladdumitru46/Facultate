@@ -20,6 +20,9 @@ public class Task extends Entity<Integer> {
         this.deadline = deadline;
     }
 
+    public Task() {
+    }
+
     public String getName() {
         return name;
     }

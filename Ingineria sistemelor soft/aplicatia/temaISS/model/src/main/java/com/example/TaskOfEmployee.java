@@ -18,6 +18,9 @@ public class TaskOfEmployee extends Entity<Integer> {
         this.taskStatus = taskStatus;
     }
 
+    public TaskOfEmployee() {
+    }
+
     public Integer getEmployeeId() {
         return employeeId;
     }

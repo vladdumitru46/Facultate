@@ -25,6 +25,9 @@ public class Employee extends Entity<Integer> {
         this.salary = salary;
     }
 
+    public Employee() {
+    }
+
     public String getName() {
         return name;
     }

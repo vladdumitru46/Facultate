@@ -6,6 +6,7 @@ import com.example.utils.Factory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
@@ -75,8 +76,10 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
             Transaction transaction = null;
             try {
                 transaction = session.beginTransaction();
-                TaskOfEmployee taskOfEmployee = session.createQuery("FROM TaskOfEmployee WHERE id=:id", TaskOfEmployee.class).
-                        setParameter("id", integer).setMaxResults(1).uniqueResult();
+                TaskOfEmployee taskOfEmployee = session.createQuery("FROM TaskOfEmployee WHERE id=:id",
+                                TaskOfEmployee.class)
+                        .setParameter("id", integer).uniqueResult();
+
                 transaction.commit();
                 return taskOfEmployee;
             } catch (RuntimeException e) {
@@ -94,7 +97,7 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
             Transaction transaction = null;
             try {
                 transaction = session.beginTransaction();
-                List<TaskOfEmployee> list = session.createQuery("FROM TaskOfEmployee", TaskOfEmployee.class).stream().toList();
+                List<TaskOfEmployee> list = session.createQuery("FROM TaskOfEmployee ", TaskOfEmployee.class).stream().toList();
                 transaction.commit();
                 return list;
             } catch (RuntimeException e) {
@@ -109,20 +112,13 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
 
     @Override
     public List<TaskOfEmployee> findAllTasksForEmployee(Integer id) {
-        try (Session session = Factory.getProperties()) {
-            Transaction transaction = null;
-            try {
-                transaction = session.beginTransaction();
-                List<TaskOfEmployee> list = session.createQuery("FROM TaskOfEmployee where employeeId=:id", TaskOfEmployee.class).setParameter("id", id).stream().toList();
-                transaction.commit();
-                return list;
-            } catch (RuntimeException e) {
-                if (transaction != null) {
-                    transaction.rollback();
-                    return null;
-                }
+        List<TaskOfEmployee> list = new ArrayList<>();
+        List<TaskOfEmployee> taskOfEmployeeList = (List<TaskOfEmployee>) findAll();
+        for (var i : taskOfEmployeeList) {
+            if (i.getEmployeeId().equals(id)) {
+                list.add(i);
             }
         }
-        return null;
+        return list;
     }
 }

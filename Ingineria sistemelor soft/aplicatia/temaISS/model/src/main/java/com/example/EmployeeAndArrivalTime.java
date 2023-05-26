@@ -19,6 +19,9 @@ public class EmployeeAndArrivalTime extends Entity<Integer> {
         this.logInTime = logInTime;
     }
 
+    public EmployeeAndArrivalTime() {
+    }
+
     public Integer getEmployeeId() {
         return employeeId;
     }
