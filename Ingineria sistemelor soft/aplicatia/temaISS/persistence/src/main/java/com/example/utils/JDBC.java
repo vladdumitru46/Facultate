@@ -1,4 +1,6 @@
-package com.example;
+package com.example.utils;
+
+import com.example.Main;
 
 import java.io.IOException;
 import java.io.InputStream;

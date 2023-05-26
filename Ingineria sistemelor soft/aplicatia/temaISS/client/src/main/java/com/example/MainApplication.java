@@ -5,6 +5,7 @@ import com.example.controller.EmployeeArrivalPage;
 import com.example.controller.EmployeeMainPage;
 import com.example.controller.LogIn;
 import com.example.objectProtocol.ObjectProxy;
+import com.example.repository.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

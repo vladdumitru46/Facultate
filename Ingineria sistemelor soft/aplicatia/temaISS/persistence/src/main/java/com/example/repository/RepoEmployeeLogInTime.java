@@ -1,6 +1,8 @@
-package com.example;
+package com.example.repository;
 
+import com.example.EmployeeAndArrivalTime;
 import com.example.interfaces.IRepoEmployeeLogInTime;
+import com.example.utils.JDBC;
 
 import java.sql.*;
 import java.util.ArrayList;

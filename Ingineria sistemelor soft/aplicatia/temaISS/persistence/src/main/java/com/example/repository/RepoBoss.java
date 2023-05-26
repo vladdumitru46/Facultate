@@ -1,6 +1,11 @@
-package com.example;
+package com.example.repository;
 
+import com.example.Boss;
 import com.example.interfaces.IRepoBoss;
+import com.example.utils.Factory;
+import com.example.utils.JDBC;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,20 +20,20 @@ public class RepoBoss implements IRepoBoss {
 
     @Override
     public Boss findByEmailAndPassword(String email, String password) {
-        String query = "SELECT * FROM boss WHERE email=? AND password=?";
-        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, email);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                Boss boss = new Boss(name, email, password);
-                boss.setId(id);
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                Boss boss = session.createQuery("FROM Boss where email=:email AND password=:password", Boss.class).
+                        setParameter("email", email).setParameter("password", password).setMaxResults(1).uniqueResult();
+                transaction.commit();
                 return boss;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return null;
     }
@@ -80,8 +85,7 @@ public class RepoBoss implements IRepoBoss {
     @Override
     public Boss findOne(Integer integer) {
         String query = "SELECT * FROM boss WHERE id=?";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, integer);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -103,9 +107,7 @@ public class RepoBoss implements IRepoBoss {
     public Iterable<Boss> findAll() {
         List<Boss> list = new ArrayList<>();
         String query = "SELECT * FROM boss";
-        try (Connection connection = jdbc.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = jdbc.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 String name = resultSet.getString("name");

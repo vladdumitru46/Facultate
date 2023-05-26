@@ -1,8 +1,15 @@
 package com.example;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
+@Table(name = "task_of_employees")
 public class TaskOfEmployee extends Entity<Integer> {
+    @Column(name = "id_employee")
     private Integer employeeId;
+    @Column(name = "id_task")
     private Integer taskId;
+    @Column(name = "status")
     private TaskStatus taskStatus;
 
     public TaskOfEmployee(Integer employeeId, Integer taskId, TaskStatus taskStatus) {

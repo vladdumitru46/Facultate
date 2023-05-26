@@ -1,6 +1,8 @@
 package com.example.objectProtocol;
 
 import com.example.*;
+import com.example.repository.RepoBoss;
+import com.example.repository.RepoEmployee;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

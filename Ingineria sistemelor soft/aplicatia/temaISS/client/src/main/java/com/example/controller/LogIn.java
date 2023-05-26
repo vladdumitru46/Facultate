@@ -1,6 +1,10 @@
 package com.example.controller;
 
-import com.example.*;
+import com.example.Boss;
+import com.example.Employee;
+import com.example.IService;
+import com.example.Service;
+import com.example.repository.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;

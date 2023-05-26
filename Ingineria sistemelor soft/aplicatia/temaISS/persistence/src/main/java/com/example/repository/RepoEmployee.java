@@ -1,6 +1,8 @@
-package com.example;
+package com.example.repository;
 
+import com.example.Employee;
 import com.example.interfaces.IRepoEmployee;
+import com.example.utils.JDBC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

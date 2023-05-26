@@ -1,11 +1,13 @@
 package com.example;
 
-import java.io.Serial;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-public class Entity<ID> implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 7331115341259248461L;
+public abstract class Entity<ID> implements Serializable {
+
+    @Id
+    @Column(name = "id")
     private ID id;
 
     public ID getId() {

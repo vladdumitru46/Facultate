@@ -1,6 +1,8 @@
-package com.example;
+package com.example.repository;
 
+import com.example.Task;
 import com.example.interfaces.IRepository;
+import com.example.utils.JDBC;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,6 +1,9 @@
-package com.example;
+package com.example.repository;
 
+import com.example.TaskOfEmployee;
+import com.example.TaskStatus;
 import com.example.interfaces.IRepoTaskOfEmployee;
+import com.example.utils.JDBC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

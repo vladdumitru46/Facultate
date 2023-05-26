@@ -1,10 +1,16 @@
 package com.example;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Table(name = "task")
 public class Task extends Entity<Integer> {
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "deadline")
     private LocalDate deadline;
 
 

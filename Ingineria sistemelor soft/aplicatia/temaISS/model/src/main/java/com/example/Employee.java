@@ -1,9 +1,21 @@
 package com.example;
 
-public class Employee extends Entity<Integer>{
+import javax.persistence.Column;
+import javax.persistence.Table;
+
+@Table(name = "employee")
+public class Employee extends Entity<Integer> {
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "salary")
     private Double salary;
 
     public Employee(String name, String email, String password, Double salary) {
