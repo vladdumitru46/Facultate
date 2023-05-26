@@ -9,6 +9,11 @@
         </id>
         <property name="employeeId" column="id_employee"/>
         <property name="taskId" column="id_task"/>
-        <property name="taskStatus" column="status"/>
+        <property name="taskStatus" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.example.TaskStatus</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
     </class>
 </hibernate-mapping>

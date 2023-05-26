@@ -1,6 +1,8 @@
 package com.example;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Table(name = "task_of_employees")
@@ -9,6 +11,7 @@ public class TaskOfEmployee extends Entity<Integer> {
     private Integer employeeId;
     @Column(name = "id_task")
     private Integer taskId;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private TaskStatus taskStatus;
 
