@@ -1,6 +1,9 @@
 package com.example.objectProtocol;
 
 import com.example.*;
+import com.example.dto.TaskOfEmployeeDTO;
+import com.example.interfaces.IRepoTaskOfEmployee;
+import com.example.repository.RepoTaskOfEmployee;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -127,6 +130,17 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
                 return new ErrorResponse(e.getMessage());
             }
         }
+        if (request instanceof UpdatePerformancesTableRequest updatePerformancesTableRequest) {
+            TaskOfEmployeeDTO task = updatePerformancesTableRequest.getTask();
+            IRepoTaskOfEmployee taskOfEmployeeRepo = new RepoTaskOfEmployee();
+            TaskOfEmployee taskOfEmployee = taskOfEmployeeRepo.findTaskOfEmployeeByEmployeeIdAndTaskId(task.getEmployeeId(), task.getTaskId());
+            try {
+                server.updateTaskOfEmployees(taskOfEmployee);
+                return new UpdatePerformancesTableResponse(task);
+            } catch (Exception e) {
+                return new ErrorResponse(e.getMessage());
+            }
+        }
 
         return response;
     }
@@ -155,6 +169,15 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
     public void receivedTask(TaskOfEmployee taskOfEmployee) {
         try {
             sendResponse(new SendTaskResponse(taskOfEmployee));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updatePerformancesTable(TaskOfEmployeeDTO taskOfEmployee) {
+        try {
+            sendResponse(new UpdatePerformancesTableResponse(taskOfEmployee));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -5,13 +5,16 @@ import java.time.LocalDate;
 
 public class TaskOfEmployeeDTO implements Serializable {
     private Integer employeeId;
+
+    private Integer taskId;
     private String employeeName;
     private String taskName;
     private LocalDate deadline;
     private String status;
 
-    public TaskOfEmployeeDTO(Integer employeeId, String employeeName, String taskName, LocalDate deadline, String status) {
+    public TaskOfEmployeeDTO(Integer employeeId, Integer taskId, String employeeName, String taskName, LocalDate deadline, String status) {
         this.employeeId = employeeId;
+        this.taskId = taskId;
         this.employeeName = employeeName;
         this.taskName = taskName;
         this.deadline = deadline;
@@ -24,6 +27,14 @@ public class TaskOfEmployeeDTO implements Serializable {
 
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     public String getEmployeeName() {
@@ -58,3 +69,4 @@ public class TaskOfEmployeeDTO implements Serializable {
         this.status = status;
     }
 }
+

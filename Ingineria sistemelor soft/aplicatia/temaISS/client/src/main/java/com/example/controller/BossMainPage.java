@@ -148,6 +148,11 @@ public class BossMainPage implements IServiceObserverBoss {
 
     }
 
+    @Override
+    public void updatePerformancesTable(TaskOfEmployeeDTO taskOfEmployee) {
+        Platform.runLater(this::setEmployeePerformancesTable);
+    }
+
     public void setStage(Stage mainStage) {
         this.stage = mainStage;
     }
@@ -186,7 +191,7 @@ public class BossMainPage implements IServiceObserverBoss {
             for (var task : taskOfEmployees) {
                 Employee employee = service.findEmployeeById(task.getEmployeeId());
                 Task task1 = service.findTask(task.getTaskId());
-                TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+                TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
                 list.add(taskOfEmployeeDTO);
             }
             ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();

@@ -15,6 +15,6 @@ public interface IService {
 
     void addTaskOfEmployees(TaskOfEmployee task) throws Exception;
 
-    TaskOfEmployee updateTaskOfEmployees(TaskOfEmployee task);
+    void updateTaskOfEmployees(TaskOfEmployee task) throws Exception;
 
 }

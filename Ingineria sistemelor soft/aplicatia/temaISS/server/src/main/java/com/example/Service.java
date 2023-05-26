@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.dto.TaskOfEmployeeDTO;
 import com.example.interfaces.*;
 
 import java.util.ArrayList;
@@ -143,8 +144,23 @@ public class Service implements IService {
         }
     }
 
-    public TaskOfEmployee updateTaskOfEmployees(TaskOfEmployee task) {
-        return repoTaskOfEmployee.update(task);
+    public void updateTaskOfEmployees(TaskOfEmployee task) {
+        repoTaskOfEmployee.update(task);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        IServiceObserverBoss client = observerMapBoss.get(1);
+        if (client != null) {
+            executorService.execute(() -> {
+                try {
+                    Employee employee = findEmployeeById(task.getEmployeeId());
+                    Task task1 = findTask(task.getTaskId());
+                    TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+                    client.updatePerformancesTable(taskOfEmployeeDTO);
+                } catch (Exception e) {
+                    System.out.println("Cannot update");
+                }
+            });
+        }
+        executorService.shutdown();
     }
 
     public Employee updateEmployee(Employee employee) {

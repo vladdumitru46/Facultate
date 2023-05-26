@@ -1,8 +1,11 @@
 package com.example.objectProtocol;
 
 import com.example.*;
+import com.example.dto.TaskOfEmployeeDTO;
+import com.example.interfaces.IRepoEmployee;
 import com.example.repository.RepoBoss;
 import com.example.repository.RepoEmployee;
+import com.example.repository.RepoTask;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -106,8 +109,17 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public TaskOfEmployee updateTaskOfEmployees(TaskOfEmployee task) {
-        return null;
+    public void updateTaskOfEmployees(TaskOfEmployee task) throws Exception {
+        IRepoEmployee repoEmployee = new RepoEmployee();
+        RepoTask repoTask = new RepoTask();
+        Employee employee = repoEmployee.findOne(task.getEmployeeId());
+        Task task1 = repoTask.findOne(task.getTaskId());
+        TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getTaskId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+        sendRequest(new UpdatePerformancesTableRequest(taskOfEmployeeDTO));
+        Response response = readResponse();
+        if (response instanceof ErrorResponse err) {
+            throw new Exception(err.getMessage());
+        }
     }
 
     private void closeConnection() {
@@ -183,6 +195,14 @@ public class ObjectProxy implements IService {
             System.out.println("intrii aici?");
             try {
                 clientBoss.employeeLogIn(employee);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (updateResponse instanceof UpdatePerformancesTableResponse updatePerformancesTableResponse) {
+            TaskOfEmployeeDTO task = updatePerformancesTableResponse.getTask();
+            try {
+                clientBoss.updatePerformancesTable(task);
             } catch (Exception e) {
                 e.printStackTrace();
             }
