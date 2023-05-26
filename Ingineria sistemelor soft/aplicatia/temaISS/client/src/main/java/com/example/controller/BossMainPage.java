@@ -232,11 +232,17 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void onRaisePush(ActionEvent actionEvent) {
         TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
-        Employee employee = service.findEmployeeById(task.getEmployeeId());
-        currentEmployee = employee;
-        employeeNameLabel.setText(employee.getName());
-        curentSalaryLabel.setText(String.valueOf(employee.getSalary()));
-        mainPage.getSelectionModel().select(raiseTab);
+        if (task != null) {
+            Employee employee = service.findEmployeeById(task.getEmployeeId());
+            currentEmployee = employee;
+            employeeNameLabel.setText(employee.getName());
+            curentSalaryLabel.setText(String.valueOf(employee.getSalary()));
+            mainPage.getSelectionModel().select(raiseTab);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("You have to select a task!\n");
+            alert.show();
+        }
     }
 
     public void onRaiseSalaryPush(ActionEvent actionEvent) {

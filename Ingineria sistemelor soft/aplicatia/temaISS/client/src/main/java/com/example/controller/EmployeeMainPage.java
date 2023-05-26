@@ -6,12 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,8 @@ import java.util.List;
 public class EmployeeMainPage implements IServiceObserver {
     Service service;
     EmployeeAndArrivalTime employee;
+
+    private TaskOfEmployee currentTaskOfEmployee;
     @FXML
     TableView<Task> tableView;
     IService serverProxy;
@@ -32,6 +33,18 @@ public class EmployeeMainPage implements IServiceObserver {
     @FXML
     TableColumn<Task, Date> deadline;
     private Stage stage;
+    @FXML
+    private TabPane mainPage;
+    @FXML
+    private Tab taskTab;
+    @FXML
+    private Tab resolveTaskTab;
+    @FXML
+    private Label taskDescriptionLabel;
+
+    @FXML
+    private Label taskTitleLabel;
+
 
     public void initializeV() {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -89,7 +102,7 @@ public class EmployeeMainPage implements IServiceObserver {
         this.employee = employeeArrivalPage;
     }
 
-    public void OnClosePush(ActionEvent actionEvent) {
+    public void onClosePush(ActionEvent actionEvent) {
         try {
             Employee employee1 = service.findEmployeeById(employee.getEmployeeId());
             EmployeeAndArrivalTime employeeAndArrivalTime = service.getEmployeeAndArrivalTimeByEmployeeId(employee1.getId());
@@ -101,6 +114,33 @@ public class EmployeeMainPage implements IServiceObserver {
             throw new RuntimeException(e);
         }
         System.exit(0);
+    }
+
+    public void onStartTaskPush(ActionEvent actionEvent) {
+        Task task = tableView.getSelectionModel().getSelectedItem();
+        if (task != null) {
+            taskTitleLabel.setText(task.getName());
+            taskDescriptionLabel.setText(task.getDescription());
+            mainPage.getSelectionModel().select(resolveTaskTab);
+            TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
+            taskOfEmployee.setTaskStatus(TaskStatus.InPROGRESS);
+            service.updateTaskOfEmployees(taskOfEmployee);
+            currentTaskOfEmployee = taskOfEmployee;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("You have to select a task!\n");
+            alert.show();
+        }
+    }
+
+    public void onSubmitTaskPush(ActionEvent actionEvent) {
+        Task task = service.findTask(currentTaskOfEmployee.getTaskId());
+        if (task.getDeadline().isAfter(LocalDate.now())) {
+            currentTaskOfEmployee.setTaskStatus(TaskStatus.COMPLETED);
+        } else {
+            currentTaskOfEmployee.setTaskStatus(TaskStatus.LATE);
+        }
+        service.updateTaskOfEmployees(currentTaskOfEmployee);
     }
 }
 

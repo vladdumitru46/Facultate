@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.controller.EmployeeMainPage">
-    <children>
-        <TableView fx:id="tableView" layoutX="7.0" layoutY="39.0" prefHeight="330.0" prefWidth="354.0">
-            <columns>
-                <TableColumn fx:id="name" prefWidth="75.0" text="name"/>
-                <TableColumn fx:id="description" prefWidth="185.5999755859375" text="description"/>
-                <TableColumn fx:id="deadline" prefWidth="92.0" text="deadline"/>
-            </columns>
-        </TableView>
-        <Button fx:id="closeButton" layoutX="461.0" layoutY="333.0" mnemonicParsing="false" onAction="#OnClosePush"
-                text="close"/>
-    </children>
-</AnchorPane>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.example.controller.EmployeeMainPage">
+  <tabs>
+    <Tab fx:id="taskTab" text="tasks">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="330.0" prefWidth="354.0">
+                     <columns>
+                        <TableColumn fx:id="name" prefWidth="75.0" text="name" />
+                        <TableColumn fx:id="description" prefWidth="185.5999755859375" text="description" />
+                        <TableColumn fx:id="deadline" prefWidth="92.0" text="deadline" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="closeButton" layoutX="460.0" layoutY="304.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
+                  <Button fx:id="startTaskButton" layoutX="449.0" layoutY="195.0" mnemonicParsing="false" onAction="#onStartTaskPush" text="start task" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="resolveTaskTab" text="resolve task">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextArea layoutX="75.0" layoutY="166.0" prefHeight="110.0" prefWidth="412.0" />
+                  <Label fx:id="taskDescriptionLabel" layoutX="75.0" layoutY="52.0" prefHeight="101.0" prefWidth="370.0" text=" " />
+                  <Label fx:id="taskTitleLabel" layoutX="279.0" layoutY="26.0" text=" ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="submitTaskButton" layoutX="234.0" layoutY="308.0" mnemonicParsing="false" onAction="#onSubmitTaskPush" text="submit and finish task" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

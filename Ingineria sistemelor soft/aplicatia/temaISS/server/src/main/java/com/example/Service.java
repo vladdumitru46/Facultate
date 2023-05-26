@@ -183,4 +183,8 @@ public class Service implements IService {
         return (List<TaskOfEmployee>) repoTaskOfEmployee.findAll();
     }
 
+    public TaskOfEmployee getTaskOfEmployeeByEmployeeIdAndTaskId(Integer employeeId, Integer taskId) {
+        return repoTaskOfEmployee.findTaskOfEmployeeByEmployeeIdAndTaskId(employeeId, taskId);
+    }
+
 }

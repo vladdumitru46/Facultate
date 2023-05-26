@@ -121,4 +121,25 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
         }
         return list;
     }
+
+    @Override
+    public TaskOfEmployee findTaskOfEmployeeByEmployeeIdAndTaskId(Integer employeeId, Integer taskId) {
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                TaskOfEmployee taskOfEmployee = session.createQuery("FROM TaskOfEmployee WHERE employeeId=:employeeId AND taskId=:taskId",
+                                TaskOfEmployee.class)
+                        .setParameter("employeeId", employeeId).setParameter("taskId", taskId).uniqueResult();
+
+                transaction.commit();
+                return taskOfEmployee;
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
+        }
+        return null;
+    }
 }
