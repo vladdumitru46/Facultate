@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <TabPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.BossMainPage">
     <tabs>
@@ -51,13 +52,31 @@
                       <TableColumn fx:id="nameColumn" prefWidth="75.0" text="name" />
                       <TableColumn fx:id="taskColumn" prefWidth="88.0" text="task" />
                         <TableColumn fx:id="deadlineColumn" prefWidth="89.59996032714844" text="deadline" />
-                        <TableColumn fx:id="dateFinishedColumn" prefWidth="93.60003662109375" text="date finished" />
+                        <TableColumn fx:id="statusColumn" prefWidth="93.60003662109375" text="status" />
                     </columns>
                   </TableView>
                   <Button fx:id="raiseButton" layoutX="446.0" layoutY="173.0" mnemonicParsing="false" onAction="#onRaisePush" text="raise" />
                </children>
             </AnchorPane>
          </content>
+      </Tab>
+      <Tab fx:id="raiseTab" text="raise">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="employeeNameLabel" layoutX="253.0" layoutY="52.0" text=" ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="employeeNameLabel1" layoutX="110.0" layoutY="149.0" text="Current salary" />
+                  <Label fx:id="curentSalaryLabel" layoutX="259.0" layoutY="149.0" prefHeight="17.0" prefWidth="103.0" text=" " />
+                  <TextField fx:id="newSalaryTF" layoutX="201.0" layoutY="204.0" />
+                  <Label layoutX="121.0" layoutY="208.0" text="New slary" />
+                  <Button fx:id="raiseSalaryButton" layoutX="250.0" layoutY="290.0" mnemonicParsing="false" onAction="#onRaiseSalaryPush" text="raise salary" />
+               </children>
+            </AnchorPane>
+        </content>
       </Tab>
     </tabs>
 </TabPane>

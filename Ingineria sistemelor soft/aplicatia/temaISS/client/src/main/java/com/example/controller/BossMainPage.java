@@ -1,14 +1,21 @@
 package com.example.controller;
 
 import com.example.*;
+import com.example.dto.TaskOfEmployeeDTO;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +45,34 @@ public class BossMainPage implements IServiceObserverBoss {
     private Tab sendTaskTab;
     @FXML
     private Tab performancesTab;
+    @FXML
+    private Tab raiseTab;
+
+
+    @FXML
+    TableView<TaskOfEmployeeDTO> performancesView;
+    @FXML
+    TableColumn<TaskOfEmployeeDTO, String> nameColumn;
+    @FXML
+    TableColumn<TaskOfEmployeeDTO, String> taskColumn;
+    @FXML
+    TableColumn<TaskOfEmployeeDTO, LocalDate> deadlineColumn;
+    @FXML
+    TableColumn<TaskOfEmployeeDTO, String> statusColumn;
+
+    @FXML
+    private Label employeeNameLabel;
+
+    @FXML
+    private Label curentSalaryLabel;
+
+    @FXML
+    private TextField newSalaryTF;
+
+    private Employee currentEmployee;
+
+
+    @FXML
 
     public void onSendTaskButton(ActionEvent actionEvent) {
         mainPage.getSelectionModel().select(sendTaskTab);
@@ -144,6 +179,47 @@ public class BossMainPage implements IServiceObserverBoss {
         }
     }
 
+    public void setEmployeePerformancesTable() {
+        try {
+            List<TaskOfEmployee> taskOfEmployees = service.getAllTasksOfEmployees();
+            List<TaskOfEmployeeDTO> list = new ArrayList<>();
+            for (var task : taskOfEmployees) {
+                Employee employee = service.findEmployeeById(task.getEmployeeId());
+                Task task1 = service.findTask(task.getTaskId());
+                TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+                list.add(taskOfEmployeeDTO);
+            }
+            ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+            taskColumn.setCellValueFactory(new PropertyValueFactory<>("taskName"));
+            deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+            statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+            observableList.setAll(list);
+            performancesView.setItems(observableList);
+            statusColumn.setCellFactory(column -> new TableCell<TaskOfEmployeeDTO, String>() {
+                @Override
+                protected void updateItem(String status, boolean empty) {
+                    super.updateItem(status, empty);
+                    if (status != null) {
+                        if (status.equals(String.valueOf(TaskStatus.InPROGRESS))) {
+                            setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+                        }
+                        if (status.equals(String.valueOf(TaskStatus.LATE))) {
+                            setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+                        }
+                        if (status.equals(String.valueOf(TaskStatus.COMPLETED))) {
+                            setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));
+                        }
+                        setTextFill(Color.BLACK);
+                        setText(status);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setBoss(Boss boss) {
         this.boss = boss;
     }
@@ -155,5 +231,22 @@ public class BossMainPage implements IServiceObserverBoss {
     }
 
     public void onRaisePush(ActionEvent actionEvent) {
+        TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
+        Employee employee = service.findEmployeeById(task.getEmployeeId());
+        currentEmployee = employee;
+        employeeNameLabel.setText(employee.getName());
+        curentSalaryLabel.setText(String.valueOf(employee.getSalary()));
+        mainPage.getSelectionModel().select(raiseTab);
+    }
+
+    public void onRaiseSalaryPush(ActionEvent actionEvent) {
+        Double salary = Double.parseDouble(newSalaryTF.getText());
+        currentEmployee.setSalary(salary);
+        service.updateEmployee(currentEmployee);
     }
 }
+
+
+
+
+

@@ -178,4 +178,9 @@ public class Service implements IService {
     public EmployeeAndArrivalTime getEmployeeAndArrivalTimeByEmployeeId(Integer id) {
         return employeeAndArrivalTimeIntegerIRepository.findByEmployeeId(id);
     }
+
+    public List<TaskOfEmployee> getAllTasksOfEmployees() {
+        return (List<TaskOfEmployee>) repoTaskOfEmployee.findAll();
+    }
+
 }

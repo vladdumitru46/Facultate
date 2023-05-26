@@ -41,6 +41,7 @@ public class LogIn {
                 bossClient.setStage(mainStage);
                 bossClient.setLogInStage(stage);
                 bossClient.setLoggedEmployees();
+                bossClient.setEmployeePerformancesTable();
                 bossClient.setProxy(serviceProxy);
                 bossClient.setBoss(boss);
                 mainStage.show();
