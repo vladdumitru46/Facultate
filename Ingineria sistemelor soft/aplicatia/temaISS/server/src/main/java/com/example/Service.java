@@ -151,6 +151,7 @@ public class Service implements IService {
         if (client != null) {
             executorService.execute(() -> {
                 try {
+                    System.out.println("INTRU IN UPDATE IN SERVICE");
                     Employee employee = findEmployeeById(task.getEmployeeId());
                     Task task1 = findTask(task.getTaskId());
                     TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));

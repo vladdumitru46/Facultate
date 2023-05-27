@@ -7,8 +7,6 @@ public interface IServiceObserverBoss {
 
     void employeeLogOut(Employee employee);
 
-    void receivedTask(TaskOfEmployee taskOfEmployee);
-
     void updatePerformancesTable(TaskOfEmployeeDTO taskOfEmployee);
 }
 

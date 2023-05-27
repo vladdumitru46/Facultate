@@ -172,7 +172,6 @@ public class ObjectProxy implements IService {
     }
 
     private void handleUpdate(UpdateResponse updateResponse) {
-        System.out.println(updateResponse);
         if (updateResponse instanceof SendTaskResponse sendTaskResponse) {
             TaskOfEmployee task = sendTaskResponse.getTaskOfEmployee();
             try {
@@ -184,7 +183,6 @@ public class ObjectProxy implements IService {
         if (updateResponse instanceof EmployeeLoggedOutResponse employeeLoggedOutResponse) {
             Employee employee = employeeLoggedOutResponse.getEmployee();
             try {
-                System.out.println("Intrii aici?");
                 clientBoss.employeeLogOut(employee);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -192,7 +190,6 @@ public class ObjectProxy implements IService {
         }
         if (updateResponse instanceof EmployeeLoggedInResponse employeeLoggedInResponse) {
             Employee employee = employeeLoggedInResponse.getEmployee();
-            System.out.println("intrii aici?");
             try {
                 clientBoss.employeeLogIn(employee);
             } catch (Exception e) {
@@ -213,16 +210,12 @@ public class ObjectProxy implements IService {
 
         @Override
         public void run() {
-            System.out.println("INTRU IN RUUUUN");
             while (!finished) {
-                System.out.println("INTRU IN FINISHED!!!");
                 try {
                     Object response = inputStream.readObject();
-                    System.out.println("tu nu intrii in hanlde");
                     if (response instanceof UpdateResponse) {
                         handleUpdate((UpdateResponse) response);
                     } else {
-                        System.out.println("intrii pe else asa-i?");
                         try {
                             responseBlockingQueue.put((Response) response);
                         } catch (InterruptedException e) {

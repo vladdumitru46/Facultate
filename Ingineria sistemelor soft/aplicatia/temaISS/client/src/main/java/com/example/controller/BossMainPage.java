@@ -144,11 +144,6 @@ public class BossMainPage implements IServiceObserverBoss {
     }
 
     @Override
-    public void receivedTask(TaskOfEmployee taskOfEmployee) {
-
-    }
-
-    @Override
     public void updatePerformancesTable(TaskOfEmployeeDTO taskOfEmployee) {
         Platform.runLater(this::setEmployeePerformancesTable);
     }

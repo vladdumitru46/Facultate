@@ -58,17 +58,6 @@ public class EmployeeMainPage implements IServiceObserver {
         tableView.setItems(observableList);
     }
 
-    @Override
-    public void employeeLogIn(Employee employee) {
-
-    }
-
-    @Override
-    public void employeeLogOut(Employee employee) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.show();
-
-    }
 
     @Override
     public void receivedTask(TaskOfEmployee taskOfEmployee) {
@@ -116,7 +105,7 @@ public class EmployeeMainPage implements IServiceObserver {
         System.exit(0);
     }
 
-    public void onStartTaskPush(ActionEvent actionEvent) {
+    public void onStartTaskPush(ActionEvent actionEvent) throws Exception {
         Task task = tableView.getSelectionModel().getSelectedItem();
         if (task != null) {
             taskTitleLabel.setText(task.getName());
@@ -124,7 +113,7 @@ public class EmployeeMainPage implements IServiceObserver {
             mainPage.getSelectionModel().select(resolveTaskTab);
             TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
             taskOfEmployee.setTaskStatus(TaskStatus.InPROGRESS);
-            service.updateTaskOfEmployees(taskOfEmployee);
+            serverProxy.updateTaskOfEmployees(taskOfEmployee);
             currentTaskOfEmployee = taskOfEmployee;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -133,14 +122,14 @@ public class EmployeeMainPage implements IServiceObserver {
         }
     }
 
-    public void onSubmitTaskPush(ActionEvent actionEvent) {
+    public void onSubmitTaskPush(ActionEvent actionEvent) throws Exception {
         Task task = service.findTask(currentTaskOfEmployee.getTaskId());
         if (task.getDeadline().isAfter(LocalDate.now())) {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.COMPLETED);
         } else {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.LATE);
         }
-        service.updateTaskOfEmployees(currentTaskOfEmployee);
+        serverProxy.updateTaskOfEmployees(currentTaskOfEmployee);
     }
 }
 
