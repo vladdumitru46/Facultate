@@ -5,7 +5,6 @@ import com.example.Employee;
 import com.example.IService;
 import com.example.Service;
 import com.example.repository.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,7 +28,7 @@ public class LogIn {
     private Scene scene2;
     private Scene scene3;
 
-    public void onLogInPush(ActionEvent actionEvent) {
+    public void onLogInPush() {
         Boss boss = service.getBossByEmailAndPassword(emailTF.getText(), passwordTF.getText());
         if (boss != null) {
             try {
@@ -59,7 +58,7 @@ public class LogIn {
                 mainStage.setScene(scene2);
                 employeeClient.setBossClient(bossClient);
                 employeeClient.setStage(mainStage);
-                employeeClient.setLogInStage(stage);
+                employeeClient.setLogInStage();
                 employeeClient.setMainPage(employeeClientMain);
                 employeeClient.setEmployee(employee);
                 employeeClient.setProxy(serviceProxy);

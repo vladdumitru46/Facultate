@@ -4,7 +4,6 @@ import com.example.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -70,14 +69,14 @@ public class EmployeeMainPage implements IServiceObserver {
         });
     }
 
-    public void setBossClient(BossMainPage bossClient) {
+    public void setBossClient() {
     }
 
     public void setStage(Stage mainStage) {
         this.stage = mainStage;
     }
 
-    public void setLogInStage(Stage stage) {
+    public void setLogInStage() {
     }
 
     public void setProxy(IService server) {
@@ -92,7 +91,7 @@ public class EmployeeMainPage implements IServiceObserver {
         this.employee = employeeArrivalPage;
     }
 
-    public void onClosePush(ActionEvent actionEvent) {
+    public void onClosePush() {
         try {
             Employee employee1 = service.findEmployeeById(employee.getEmployeeId());
             EmployeeAndArrivalTime employeeAndArrivalTime = service.getEmployeeAndArrivalTimeByEmployeeId(employee1.getId());
@@ -106,7 +105,7 @@ public class EmployeeMainPage implements IServiceObserver {
         System.exit(0);
     }
 
-    public void onStartTaskPush(ActionEvent actionEvent) throws Exception {
+    public void onStartTaskPush() throws Exception {
         resolveTaskTab.setDisable(false);
         Task task = tableView.getSelectionModel().getSelectedItem();
         if (task != null) {
@@ -124,7 +123,7 @@ public class EmployeeMainPage implements IServiceObserver {
         }
     }
 
-    public void onSubmitTaskPush(ActionEvent actionEvent) throws Exception {
+    public void onSubmitTaskPush() throws Exception {
         Task task = service.findTask(currentTaskOfEmployee.getTaskId());
         if (task.getDeadline().isAfter(LocalDate.now())) {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.COMPLETED);

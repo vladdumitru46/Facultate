@@ -4,7 +4,6 @@ import com.example.Employee;
 import com.example.EmployeeAndArrivalTime;
 import com.example.IService;
 import com.example.Service;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,7 +26,7 @@ public class EmployeeArrivalPage {
     @FXML
     TextField arrivalTimeTF;
 
-    public void onPresentPush(ActionEvent actionEvent) throws Exception {
+    public void onPresentPush() throws Exception {
         String stringTime = arrivalTimeTF.getText();
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date date = format.parse(stringTime);
@@ -40,9 +39,9 @@ public class EmployeeArrivalPage {
             mainStage.setTitle(employee.getName());
             mainStage.setScene(scene2);
             employeeClient.setEmployeeToWork(employeeArrivalPage);
-            employeeClient.setBossClient(bossClient);
+            employeeClient.setBossClient();
             employeeClient.setStage(mainStage);
-            employeeClient.setLogInStage(stage);
+            employeeClient.setLogInStage();
             employeeClient.initializeV();
             mainStage.show();
             stage.close();
@@ -67,7 +66,7 @@ public class EmployeeArrivalPage {
         this.stage = mainStage;
     }
 
-    public void setLogInStage(Stage stage) {
+    public void setLogInStage() {
     }
 
     public void setBossClient(BossMainPage bossClient) {

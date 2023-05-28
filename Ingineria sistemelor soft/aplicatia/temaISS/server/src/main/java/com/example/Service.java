@@ -132,8 +132,8 @@ public class Service implements IService {
         return taskOfEmployeeDTOList;
     }
 
-    public Task addTask(Task task) {
-        return repoTask.add(task);
+    public void addTask(Task task) {
+        repoTask.add(task);
     }
 
     public Employee findEmployeeById(Integer id) {
@@ -169,28 +169,24 @@ public class Service implements IService {
         }
     }
 
-    public Employee updateEmployee(Employee employee) {
-        return repoEmployee.update(employee);
+    public void updateEmployee(Employee employee) {
+        repoEmployee.update(employee);
     }
 
-    public Employee deleteEmployee(Integer id) {
-        return repoEmployee.delete(id);
+    public void deleteEmployee(Integer id) {
+        repoEmployee.delete(id);
     }
 
-    public EmployeeAndArrivalTime addEmployeeToWork(EmployeeAndArrivalTime employeeAndArrivalTime) {
-        return employeeAndArrivalTimeIntegerIRepository.add(employeeAndArrivalTime);
+    public void addEmployeeToWork(EmployeeAndArrivalTime employeeAndArrivalTime) {
+        employeeAndArrivalTimeIntegerIRepository.add(employeeAndArrivalTime);
     }
 
     public List<Task> getAllTasks() {
         return (List<Task>) repoTask.findAll();
     }
 
-    public EmployeeAndArrivalTime deleteEmployeeFromWork(Integer id) {
-        return employeeAndArrivalTimeIntegerIRepository.delete(id);
-    }
-
-    public List<EmployeeAndArrivalTime> getAllEmployeesFromWork() {
-        return (List<EmployeeAndArrivalTime>) employeeAndArrivalTimeIntegerIRepository.findAll();
+    public void deleteEmployeeFromWork(Integer id) {
+        employeeAndArrivalTimeIntegerIRepository.delete(id);
     }
 
     public List<TaskOfEmployee> getTasksForEmployee(Integer id) {

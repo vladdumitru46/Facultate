@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class MainApplication extends Application {
-    Stage stage;
     private static final int defaultChatPort = 55555;
     private static final String defaultServer = "localhost";
 
@@ -48,26 +47,26 @@ public class MainApplication extends Application {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/logIn.fxml"));
-        Parent loader = (Parent) fxmlLoader.load();
+        Parent loader = fxmlLoader.load();
         LogIn logIn = fxmlLoader.getController();
 
         FXMLLoader fLoader = new FXMLLoader(getClass().getResource("/bossMainPage.fxml"));
         Parent parent = fLoader.load();
 
-        BossMainPage mainPage = fLoader.<BossMainPage>getController();
+        BossMainPage mainPage = fLoader.getController();
         mainPage.setProxy(server);
         mainPage.setService(service);
 
 
         FXMLLoader fLoaderEmployee = new FXMLLoader(getClass().getResource("/employeeArrivalPage.fxml"));
         Parent parentEmployee = fLoaderEmployee.load();
-        EmployeeArrivalPage mainPageEmployee = fLoaderEmployee.<EmployeeArrivalPage>getController();
+        EmployeeArrivalPage mainPageEmployee = fLoaderEmployee.getController();
         mainPageEmployee.setProxy(server);
         mainPageEmployee.setService(service);
 
         FXMLLoader fLoaderEmployeeMain = new FXMLLoader(getClass().getResource("/employeeMainPage.fxml"));
         Parent parentEmployeeMain = fLoaderEmployeeMain.load();
-        EmployeeMainPage mainPageEmployeeMain = fLoaderEmployeeMain.<EmployeeMainPage>getController();
+        EmployeeMainPage mainPageEmployeeMain = fLoaderEmployeeMain.getController();
         mainPageEmployeeMain.setProxy(server);
         mainPageEmployeeMain.setService(service);
 

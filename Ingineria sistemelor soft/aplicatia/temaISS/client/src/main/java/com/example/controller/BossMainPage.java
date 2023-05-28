@@ -5,7 +5,6 @@ import com.example.dto.TaskOfEmployeeDTO;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -72,20 +71,16 @@ public class BossMainPage implements IServiceObserverBoss {
 
 
     @FXML
-
-    public void onSendTaskButton(ActionEvent actionEvent) {
+    public void onSendTaskButton() {
         sendTaskTab.setDisable(false);
         mainPage.getSelectionModel().select(sendTaskTab);
     }
 
-    public void onEmployeePerformancesPush(ActionEvent actionEvent) {
+    public void onEmployeePerformancesPush() {
         mainPage.getSelectionModel().select(performancesTab);
     }
 
-    public void onActionsPush(ActionEvent actionEvent) {
-    }
-
-    public void onSendPush(ActionEvent actionEvent) throws Exception {
+    public void onSendPush() throws Exception {
         Task task = new Task(titleTF.getText(), descriptionTF.getText(), deadlineTF.getValue());
         service.addTask(task);
         List<Task> list = service.getAllTasks();
@@ -194,7 +189,7 @@ public class BossMainPage implements IServiceObserverBoss {
             statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
             observableList.setAll(list);
             performancesView.setItems(observableList);
-            statusColumn.setCellFactory(column -> new TableCell<TaskOfEmployeeDTO, String>() {
+            statusColumn.setCellFactory(column -> new TableCell<>() {
                 @Override
                 protected void updateItem(String status, boolean empty) {
                     super.updateItem(status, empty);
@@ -222,13 +217,13 @@ public class BossMainPage implements IServiceObserverBoss {
         this.boss = boss;
     }
 
-    public void onClosePush(ActionEvent actionEvent) {
+    public void onClosePush() {
         service.logOutBoss(boss, this);
         System.exit(0);
         stage.close();
     }
 
-    public void onRaisePush(ActionEvent actionEvent) {
+    public void onRaisePush() {
         raiseTab.setDisable(false);
         TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
         if (task != null) {
@@ -244,7 +239,7 @@ public class BossMainPage implements IServiceObserverBoss {
         }
     }
 
-    public void onRaiseSalaryPush(ActionEvent actionEvent) {
+    public void onRaiseSalaryPush() {
         Double salary = Double.parseDouble(newSalaryTF.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(currentEmployee.getName());
@@ -255,13 +250,14 @@ public class BossMainPage implements IServiceObserverBoss {
         raiseTab.setDisable(true);
     }
 
-    public void onFirePush(ActionEvent actionEvent) throws Exception {
+    public void onFirePush() throws Exception {
         TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
         Employee employee = service.findEmployeeById(task.getEmployeeId());
         serverProxy.logOutEmployee(employee);
         service.deleteTaskOfEmployeeByEmployeeId(employee.getId());
         service.deleteEmployee(employee.getId());
     }
+
 }
 
 
