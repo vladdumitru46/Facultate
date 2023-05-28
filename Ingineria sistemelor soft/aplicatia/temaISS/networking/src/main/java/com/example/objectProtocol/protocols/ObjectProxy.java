@@ -66,7 +66,7 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public void logOutEmployee(Employee employee, IServiceObserver client) throws Exception {
+    public void logOutEmployee(Employee employee) throws Exception {
         sendRequest(new LogOutEmployeeRequest(employee));
         Response response = readResponse();
         closeConnection();

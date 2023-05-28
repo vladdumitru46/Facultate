@@ -143,4 +143,21 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
         }
         return null;
     }
+
+    @Override
+    public void deleteTaskOfEmployeeByEmployeeId(Integer id) {
+        try (Session session = Factory.getProperties()) {
+            Transaction transaction = null;
+            try {
+                transaction = session.beginTransaction();
+                TaskOfEmployee criteria = session.createQuery("from TaskOfEmployee where employeeId = :entity", TaskOfEmployee.class).setParameter("entity", id).setMaxResults(1).uniqueResult();
+                session.delete(criteria);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
+        }
+    }
 }

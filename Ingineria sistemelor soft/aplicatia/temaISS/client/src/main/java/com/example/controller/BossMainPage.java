@@ -181,7 +181,7 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void setEmployeePerformancesTable() {
         try {
-            List<TaskOfEmployeeDTO> list = serverProxy.getTasksOfEmployeesDTO(boss);
+            List<TaskOfEmployeeDTO> list = service.getTasksOfEmployeesDTO(boss);
             ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
             taskColumn.setCellValueFactory(new PropertyValueFactory<>("taskName"));
@@ -245,6 +245,14 @@ public class BossMainPage implements IServiceObserverBoss {
         alert.show();
         currentEmployee.setSalary(salary);
         service.updateEmployee(currentEmployee);
+    }
+
+    public void onFirePush(ActionEvent actionEvent) throws Exception {
+        TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
+        Employee employee = service.findEmployeeById(task.getEmployeeId());
+        serverProxy.logOutEmployee(employee);
+        service.deleteTaskOfEmployeeByEmployeeId(employee.getId());
+        service.deleteEmployee(employee.getId());
     }
 }
 

@@ -96,7 +96,7 @@ public class EmployeeMainPage implements IServiceObserver {
             Employee employee1 = service.findEmployeeById(employee.getEmployeeId());
             EmployeeAndArrivalTime employeeAndArrivalTime = service.getEmployeeAndArrivalTimeByEmployeeId(employee1.getId());
             System.out.println(employee1.getName());
-            serverProxy.logOutEmployee(employee1, this);
+            serverProxy.logOutEmployee(employee1);
             service.deleteEmployeeFromWork(employeeAndArrivalTime.getId());
             stage.close();
         } catch (Exception e) {
@@ -110,8 +110,6 @@ public class EmployeeMainPage implements IServiceObserver {
         if (task != null) {
             TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
             taskOfEmployee.setTaskStatus(TaskStatus.InPROGRESS);
-//            RepoTaskOfEmployee repoTaskOfEmployee = new RepoTaskOfEmployee();
-//            repoTaskOfEmployee.update(taskOfEmployee);
             serverProxy.updateTaskOfEmployees(taskOfEmployee);
             currentTaskOfEmployee = taskOfEmployee;
             taskTitleLabel.setText(task.getName());
@@ -131,8 +129,6 @@ public class EmployeeMainPage implements IServiceObserver {
         } else {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.LATE);
         }
-//        RepoTaskOfEmployee repoTaskOfEmployee = new RepoTaskOfEmployee();
-//        repoTaskOfEmployee.update(currentTaskOfEmployee);
         serverProxy.updateTaskOfEmployees(currentTaskOfEmployee);
     }
 }

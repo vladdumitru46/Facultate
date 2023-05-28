@@ -61,7 +61,6 @@ public class Service implements IService {
                 throw new Exception("Employee already logged in!");
             }
             observerMap.put(employee.getId(), client);
-            System.out.println("OBSERVER MAP LOGIN: " + observerMap);
             notifyBossEmployeeLogIn(employee);
         } else {
             throw new Exception("Email or password invalid!");
@@ -69,8 +68,7 @@ public class Service implements IService {
     }
 
     @Override
-    public void logOutEmployee(Employee employee, IServiceObserver client) throws Exception {
-        System.out.println("OBSERVER MAP" + observerMap);
+    public void logOutEmployee(Employee employee) throws Exception {
         IServiceObserver localClient = observerMap.remove(employee.getId());
         if (localClient == null) {
             throw new Exception("Employee " + employee.getId() + " is not logged in!");
@@ -209,6 +207,10 @@ public class Service implements IService {
 
     public TaskOfEmployee getTaskOfEmployeeByEmployeeIdAndTaskId(Integer employeeId, Integer taskId) {
         return repoTaskOfEmployee.findTaskOfEmployeeByEmployeeIdAndTaskId(employeeId, taskId);
+    }
+
+    public void deleteTaskOfEmployeeByEmployeeId(Integer employeeId) {
+        repoTaskOfEmployee.deleteTaskOfEmployeeByEmployeeId(employeeId);
     }
 
 }

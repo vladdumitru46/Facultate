@@ -107,7 +107,7 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
         if (request instanceof LogOutEmployeeRequest logOutEmployee) {
             Employee employee = logOutEmployee.getEmployee();
             try {
-                server.logOutEmployee(employee, this);
+                server.logOutEmployee(employee);
                 connected = false;
                 return new OkResponse();
             } catch (Exception e) {

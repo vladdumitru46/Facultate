@@ -9,7 +9,7 @@ public interface IService {
 
     void logOutBoss(Boss boss, IServiceObserverBoss client) throws Exception;
 
-    void logOutEmployee(Employee employee, IServiceObserver client) throws Exception;
+    void logOutEmployee(Employee employee) throws Exception;
 
     void logInEmployee(String email, String password, IServiceObserver client) throws Exception;
 
