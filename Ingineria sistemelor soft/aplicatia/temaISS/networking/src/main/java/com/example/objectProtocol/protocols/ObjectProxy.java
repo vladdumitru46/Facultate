@@ -93,18 +93,6 @@ public class ObjectProxy implements IService {
     }
 
     @Override
-    public List<EmployeeAndArrivalTime> getLoggedInEmployees(Boss boss) throws Exception {
-        sendRequest(new GetLoggedInEmployeesRequest(boss));
-        Response response = readResponse();
-        if (response instanceof ErrorResponse err) {
-            throw new Exception(err.getMessage());
-        } else {
-            GetLoggedInEmployeeResponse getLoggedInEmployeeResponse = (GetLoggedInEmployeeResponse) response;
-            return getLoggedInEmployeeResponse.getList();
-        }
-    }
-
-    @Override
     public void addTaskOfEmployees(TaskOfEmployee task) throws Exception {
         sendRequest(new SendTaskRequest(task));
         Response response = readResponse();
@@ -121,18 +109,36 @@ public class ObjectProxy implements IService {
         Task task1 = repoTask.findOne(task.getTaskId());
         TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getTaskId(),
                 employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
-        System.out.println(taskOfEmployeeDTO.getStatus());
         sendRequest(new UpdatePerformancesTableRequest(taskOfEmployeeDTO));
         Response response = readResponse();
-        System.out.println("Read response a returnat: " + response);
         if (response instanceof ErrorResponse err) {
             throw new Exception(err.getMessage());
         }
     }
 
     @Override
-    public List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss) {
-        return null;
+    public List<EmployeeAndArrivalTime> getLoggedInEmployees(Boss boss) throws Exception {
+        sendRequest(new GetLoggedInEmployeesRequest(boss));
+        Response response = readResponse();
+        if (response instanceof ErrorResponse err) {
+            throw new Exception(err.getMessage());
+        } else {
+            GetLoggedInEmployeeResponse getLoggedInEmployeeResponse = (GetLoggedInEmployeeResponse) response;
+            return getLoggedInEmployeeResponse.getList();
+        }
+    }
+
+    @Override
+    public List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss) throws Exception {
+        sendRequest(new GetTasksOfEmployeesRequest(boss));
+        Response response = readResponse();
+        if (response instanceof ErrorResponse err) {
+            throw new Exception(err.getMessage());
+        } else {
+            GetTasksOfEmployeesResponse getTasksOfEmployeesResponse = (GetTasksOfEmployeesResponse) response;
+            return getTasksOfEmployeesResponse.getList();
+        }
+
     }
 
     private void closeConnection() {
@@ -161,7 +167,6 @@ public class ObjectProxy implements IService {
         try {
             outputStream.writeObject(request);
             outputStream.flush();
-            System.out.println("Deci a trimis bine in send request ala!\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

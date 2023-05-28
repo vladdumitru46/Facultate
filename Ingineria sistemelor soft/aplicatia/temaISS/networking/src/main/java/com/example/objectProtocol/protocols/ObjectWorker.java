@@ -66,7 +66,6 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
 
     private void sendResponse(Response response) throws IOException {
         synchronized (outputStream) {
-            System.out.println("send response");
             outputStream.writeObject(response);
             outputStream.flush();
         }
@@ -125,6 +124,15 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
                 return new ErrorResponse(e.getMessage());
             }
         }
+        if (request instanceof GetTasksOfEmployeesRequest getTasksOfEmployeesRequest) {
+            Boss boss = getTasksOfEmployeesRequest.getBoss();
+            try {
+                List<TaskOfEmployeeDTO> list = server.getTasksOfEmployeesDTO(boss);
+                return new GetTasksOfEmployeesResponse(list);
+            } catch (Exception e) {
+                return new ErrorResponse(e.getMessage());
+            }
+        }
 
         if (request instanceof SendTaskRequest sendTaskRequest) {
             TaskOfEmployee task = sendTaskRequest.getTask();
@@ -139,7 +147,9 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
             TaskOfEmployeeDTO task = updatePerformancesTableRequest.getTask();
             IRepoTaskOfEmployee taskOfEmployeeRepo = new RepoTaskOfEmployee();
             TaskOfEmployee taskOfEmployee = taskOfEmployeeRepo.findTaskOfEmployeeByEmployeeIdAndTaskId(task.getEmployeeId(), task.getTaskId());
+            taskOfEmployee.setTaskStatus(TaskStatus.valueOf(task.getStatus()));
             try {
+                System.out.println("task status: " + taskOfEmployee.getTaskStatus());
                 server.updateTaskOfEmployees(taskOfEmployee);
                 return new OkResponse();
             } catch (Exception e) {

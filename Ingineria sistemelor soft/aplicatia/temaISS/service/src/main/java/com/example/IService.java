@@ -19,6 +19,6 @@ public interface IService {
 
     void updateTaskOfEmployees(TaskOfEmployee task) throws Exception;
 
-    List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss);
+    List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss) throws Exception;
 
 }

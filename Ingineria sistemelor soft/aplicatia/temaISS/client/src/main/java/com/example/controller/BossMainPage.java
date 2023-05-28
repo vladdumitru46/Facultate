@@ -93,6 +93,7 @@ public class BossMainPage implements IServiceObserverBoss {
         Integer id = Character.getNumericValue(employee.charAt(1));
         TaskOfEmployee taskOfEmployee = new TaskOfEmployee(id, task.getId(), TaskStatus.SENT);
         serverProxy.addTaskOfEmployees(taskOfEmployee);
+        setEmployeePerformancesTable();
     }
 
     public void setProxy(IService server) {
@@ -180,7 +181,7 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void setEmployeePerformancesTable() {
         try {
-            List<TaskOfEmployeeDTO> list = service.getTasksOfEmployeesDTO(boss);
+            List<TaskOfEmployeeDTO> list = serverProxy.getTasksOfEmployeesDTO(boss);
             ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
             taskColumn.setCellValueFactory(new PropertyValueFactory<>("taskName"));

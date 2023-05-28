@@ -158,23 +158,17 @@ public class Service implements IService {
     }
 
     public void updateTaskOfEmployees(TaskOfEmployee task) {
-        repoTaskOfEmployee.update(task);
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
         IServiceObserverBoss client = observerMapBoss.get(1);
         if (client != null) {
-            executorService.execute(() -> {
-                try {
-                    System.out.println("INTRU IN UPDATE IN SERVICE");
-                    Employee employee = findEmployeeById(task.getEmployeeId());
-                    Task task1 = findTask(task.getTaskId());
-                    TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
-                    client.updatePerformancesTable(taskOfEmployeeDTO);
-                } catch (Exception e) {
-                    System.out.println("Cannot update");
-                }
-            });
+            Employee employee = findEmployeeById(task.getEmployeeId());
+            Task task1 = findTask(task.getTaskId());
+            TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+            repoTaskOfEmployee.update(task);
+            System.out.println("TASK STATUS " + taskOfEmployeeDTO.getStatus() + " " + taskOfEmployeeDTO.getTaskId());
+            client.updatePerformancesTable(taskOfEmployeeDTO);
+        } else {
+            System.out.println("Cannot update");
         }
-        executorService.shutdown();
     }
 
     public Employee updateEmployee(Employee employee) {

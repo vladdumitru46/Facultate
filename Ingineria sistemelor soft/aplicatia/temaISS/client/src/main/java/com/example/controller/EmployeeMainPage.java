@@ -108,13 +108,15 @@ public class EmployeeMainPage implements IServiceObserver {
     public void onStartTaskPush(ActionEvent actionEvent) throws Exception {
         Task task = tableView.getSelectionModel().getSelectedItem();
         if (task != null) {
+            TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
+            taskOfEmployee.setTaskStatus(TaskStatus.InPROGRESS);
+//            RepoTaskOfEmployee repoTaskOfEmployee = new RepoTaskOfEmployee();
+//            repoTaskOfEmployee.update(taskOfEmployee);
+            serverProxy.updateTaskOfEmployees(taskOfEmployee);
+            currentTaskOfEmployee = taskOfEmployee;
             taskTitleLabel.setText(task.getName());
             taskDescriptionLabel.setText(task.getDescription());
             mainPage.getSelectionModel().select(resolveTaskTab);
-            TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
-            taskOfEmployee.setTaskStatus(TaskStatus.InPROGRESS);
-            serverProxy.updateTaskOfEmployees(taskOfEmployee);
-            currentTaskOfEmployee = taskOfEmployee;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("You have to select a task!\n");
@@ -129,6 +131,8 @@ public class EmployeeMainPage implements IServiceObserver {
         } else {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.LATE);
         }
+//        RepoTaskOfEmployee repoTaskOfEmployee = new RepoTaskOfEmployee();
+//        repoTaskOfEmployee.update(currentTaskOfEmployee);
         serverProxy.updateTaskOfEmployees(currentTaskOfEmployee);
     }
 }
