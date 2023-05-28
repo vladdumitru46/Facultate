@@ -47,6 +47,7 @@ public class EmployeeMainPage implements IServiceObserver {
 
 
     public void initializeV() {
+        resolveTaskTab.setDisable(true);
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
         deadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
@@ -106,6 +107,7 @@ public class EmployeeMainPage implements IServiceObserver {
     }
 
     public void onStartTaskPush(ActionEvent actionEvent) throws Exception {
+        resolveTaskTab.setDisable(false);
         Task task = tableView.getSelectionModel().getSelectedItem();
         if (task != null) {
             TaskOfEmployee taskOfEmployee = service.getTaskOfEmployeeByEmployeeIdAndTaskId(employee.getEmployeeId(), task.getId());
@@ -130,6 +132,8 @@ public class EmployeeMainPage implements IServiceObserver {
             currentTaskOfEmployee.setTaskStatus(TaskStatus.LATE);
         }
         serverProxy.updateTaskOfEmployees(currentTaskOfEmployee);
+        mainPage.getSelectionModel().select(taskTab);
+        resolveTaskTab.setDisable(true);
     }
 }
 

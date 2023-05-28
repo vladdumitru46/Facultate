@@ -74,6 +74,7 @@ public class BossMainPage implements IServiceObserverBoss {
     @FXML
 
     public void onSendTaskButton(ActionEvent actionEvent) {
+        sendTaskTab.setDisable(false);
         mainPage.getSelectionModel().select(sendTaskTab);
     }
 
@@ -94,6 +95,8 @@ public class BossMainPage implements IServiceObserverBoss {
         TaskOfEmployee taskOfEmployee = new TaskOfEmployee(id, task.getId(), TaskStatus.SENT);
         serverProxy.addTaskOfEmployees(taskOfEmployee);
         setEmployeePerformancesTable();
+        mainPage.getSelectionModel().select(mainTab);
+        sendTaskTab.setDisable(true);
     }
 
     public void setProxy(IService server) {
@@ -181,6 +184,8 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void setEmployeePerformancesTable() {
         try {
+            raiseTab.setDisable(true);
+            sendTaskTab.setDisable(true);
             List<TaskOfEmployeeDTO> list = service.getTasksOfEmployeesDTO(boss);
             ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -224,6 +229,7 @@ public class BossMainPage implements IServiceObserverBoss {
     }
 
     public void onRaisePush(ActionEvent actionEvent) {
+        raiseTab.setDisable(false);
         TaskOfEmployeeDTO task = performancesView.getSelectionModel().getSelectedItem();
         if (task != null) {
             Employee employee = service.findEmployeeById(task.getEmployeeId());
@@ -245,6 +251,8 @@ public class BossMainPage implements IServiceObserverBoss {
         alert.show();
         currentEmployee.setSalary(salary);
         service.updateEmployee(currentEmployee);
+        mainPage.getSelectionModel().select(performancesTab);
+        raiseTab.setDisable(true);
     }
 
     public void onFirePush(ActionEvent actionEvent) throws Exception {
