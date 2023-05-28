@@ -62,6 +62,7 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
 
     private void sendResponse(Response response) throws IOException {
         synchronized (outputStream) {
+            System.out.println("send response");
             outputStream.writeObject(response);
             outputStream.flush();
         }
@@ -136,7 +137,7 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
             TaskOfEmployee taskOfEmployee = taskOfEmployeeRepo.findTaskOfEmployeeByEmployeeIdAndTaskId(task.getEmployeeId(), task.getTaskId());
             try {
                 server.updateTaskOfEmployees(taskOfEmployee);
-                return new UpdatePerformancesTableResponse(task);
+                return new OkResponse();
             } catch (Exception e) {
                 return new ErrorResponse(e.getMessage());
             }
@@ -149,7 +150,6 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
     public void employeeLogIn(Employee employee) {
         try {
             sendResponse(new EmployeeLoggedInResponse(employee));
-            System.out.println("am trimis response-ul!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -158,7 +158,6 @@ public class ObjectWorker implements Runnable, IServiceObserver, IServiceObserve
     @Override
     public void employeeLogOut(Employee employee) {
         try {
-            System.out.println("E BINE AICI?");
             sendResponse(new EmployeeLoggedOutResponse(employee));
         } catch (IOException e) {
             throw new RuntimeException(e);

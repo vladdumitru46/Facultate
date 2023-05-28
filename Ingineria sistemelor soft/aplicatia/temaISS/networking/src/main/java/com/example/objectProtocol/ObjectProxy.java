@@ -115,11 +115,17 @@ public class ObjectProxy implements IService {
         Employee employee = repoEmployee.findOne(task.getEmployeeId());
         Task task1 = repoTask.findOne(task.getTaskId());
         TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getTaskId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+        System.out.println(taskOfEmployeeDTO.getStatus());
         sendRequest(new UpdatePerformancesTableRequest(taskOfEmployeeDTO));
         Response response = readResponse();
         if (response instanceof ErrorResponse err) {
             throw new Exception(err.getMessage());
         }
+    }
+
+    @Override
+    public List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss) {
+        return null;
     }
 
     private void closeConnection() {
@@ -172,6 +178,7 @@ public class ObjectProxy implements IService {
     }
 
     private void handleUpdate(UpdateResponse updateResponse) {
+        System.out.println(clientBoss);
         if (updateResponse instanceof SendTaskResponse sendTaskResponse) {
             TaskOfEmployee task = sendTaskResponse.getTaskOfEmployee();
             try {
@@ -188,18 +195,18 @@ public class ObjectProxy implements IService {
                 e.printStackTrace();
             }
         }
-        if (updateResponse instanceof EmployeeLoggedInResponse employeeLoggedInResponse) {
-            Employee employee = employeeLoggedInResponse.getEmployee();
-            try {
-                clientBoss.employeeLogIn(employee);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         if (updateResponse instanceof UpdatePerformancesTableResponse updatePerformancesTableResponse) {
             TaskOfEmployeeDTO task = updatePerformancesTableResponse.getTask();
             try {
                 clientBoss.updatePerformancesTable(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (updateResponse instanceof EmployeeLoggedInResponse employeeLoggedInResponse) {
+            Employee employee = employeeLoggedInResponse.getEmployee();
+            try {
+                clientBoss.employeeLogIn(employee);
             } catch (Exception e) {
                 e.printStackTrace();
             }

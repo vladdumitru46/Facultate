@@ -121,6 +121,19 @@ public class Service implements IService {
         return result;
     }
 
+    @Override
+    public List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss) {
+        List<TaskOfEmployee> taskOfEmployeeList = getAllTasksOfEmployees();
+        List<TaskOfEmployeeDTO> taskOfEmployeeDTOList = new ArrayList<>();
+        for (var i : taskOfEmployeeList) {
+            Employee employee = findEmployeeById(i.getEmployeeId());
+            Task task = findTask(i.getTaskId());
+            TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getId(), employee.getName(), task.getName(), task.getDeadline(), String.valueOf(i.getTaskStatus()));
+            taskOfEmployeeDTOList.add(taskOfEmployeeDTO);
+        }
+        return taskOfEmployeeDTOList;
+    }
+
     public Task addTask(Task task) {
         return repoTask.add(task);
     }

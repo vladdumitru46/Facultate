@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.dto.TaskOfEmployeeDTO;
+
 import java.util.List;
 
 public interface IService {
@@ -16,5 +18,7 @@ public interface IService {
     void addTaskOfEmployees(TaskOfEmployee task) throws Exception;
 
     void updateTaskOfEmployees(TaskOfEmployee task) throws Exception;
+
+    List<TaskOfEmployeeDTO> getTasksOfEmployeesDTO(Boss boss);
 
 }

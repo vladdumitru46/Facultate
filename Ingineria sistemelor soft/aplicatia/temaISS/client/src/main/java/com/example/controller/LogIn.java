@@ -32,7 +32,6 @@ public class LogIn {
     public void onLogInPush(ActionEvent actionEvent) {
         Boss boss = service.getBossByEmailAndPassword(emailTF.getText(), passwordTF.getText());
         if (boss != null) {
-            System.out.println("Nu e null!");
             try {
                 serviceProxy.logInBoss(emailTF.getText(), passwordTF.getText(), bossClient);
                 Stage mainStage = new Stage();
@@ -53,8 +52,6 @@ public class LogIn {
                 alert.show();
             }
         } else {
-            System.out.println("e null");
-
             Employee employee = service.getEmployeeByEmailAndPassword(emailTF.getText(), passwordTF.getText());
             if (employee != null) {
                 Stage mainStage = new Stage();

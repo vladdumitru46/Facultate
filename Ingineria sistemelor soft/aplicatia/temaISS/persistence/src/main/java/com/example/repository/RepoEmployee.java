@@ -76,7 +76,7 @@ public class RepoEmployee implements IRepoEmployee {
                 employee.setName(entity.getName());
                 employee.setEmail(entity.getEmail());
                 employee.setPassword(entity.getPassword());
-                employee.setSalary(employee.getSalary());
+                employee.setSalary(entity.getSalary());
                 transaction.commit();
             } catch (RuntimeException e) {
                 if (transaction != null) {

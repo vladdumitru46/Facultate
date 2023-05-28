@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -181,14 +180,7 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void setEmployeePerformancesTable() {
         try {
-            List<TaskOfEmployee> taskOfEmployees = service.getAllTasksOfEmployees();
-            List<TaskOfEmployeeDTO> list = new ArrayList<>();
-            for (var task : taskOfEmployees) {
-                Employee employee = service.findEmployeeById(task.getEmployeeId());
-                Task task1 = service.findTask(task.getTaskId());
-                TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task1.getId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
-                list.add(taskOfEmployeeDTO);
-            }
+            List<TaskOfEmployeeDTO> list = service.getTasksOfEmployeesDTO(boss);
             ObservableList<TaskOfEmployeeDTO> observableList = FXCollections.observableArrayList();
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
             taskColumn.setCellValueFactory(new PropertyValueFactory<>("taskName"));
@@ -247,6 +239,9 @@ public class BossMainPage implements IServiceObserverBoss {
 
     public void onRaiseSalaryPush(ActionEvent actionEvent) {
         Double salary = Double.parseDouble(newSalaryTF.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(currentEmployee.getName());
+        alert.show();
         currentEmployee.setSalary(salary);
         service.updateEmployee(currentEmployee);
     }
