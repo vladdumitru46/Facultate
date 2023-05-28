@@ -1,6 +1,7 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.responseClasses;
 
 import com.example.EmployeeAndArrivalTime;
+import com.example.objectProtocol.interfaces.Response;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.responseClasses;
 
 import com.example.dto.TaskOfEmployeeDTO;
+import com.example.objectProtocol.interfaces.UpdateResponse;
 
 public class UpdatePerformancesTableResponse implements UpdateResponse {
 

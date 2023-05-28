@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.TaskOfEmployee;
+import com.example.TaskStatus;
 import com.example.interfaces.IRepoTaskOfEmployee;
 import com.example.utils.Factory;
 import org.hibernate.Session;
@@ -115,7 +116,7 @@ public class RepoTaskOfEmployee implements IRepoTaskOfEmployee {
         List<TaskOfEmployee> list = new ArrayList<>();
         List<TaskOfEmployee> taskOfEmployeeList = (List<TaskOfEmployee>) findAll();
         for (var i : taskOfEmployeeList) {
-            if (i.getEmployeeId().equals(id)) {
+            if (i.getEmployeeId().equals(id) && (i.getTaskStatus().equals(TaskStatus.SENT) || i.getTaskStatus().equals(TaskStatus.InPROGRESS))) {
                 list.add(i);
             }
         }

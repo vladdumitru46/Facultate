@@ -1,8 +1,13 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.protocols;
 
 import com.example.*;
 import com.example.dto.TaskOfEmployeeDTO;
 import com.example.interfaces.IRepoEmployee;
+import com.example.objectProtocol.interfaces.Request;
+import com.example.objectProtocol.interfaces.Response;
+import com.example.objectProtocol.interfaces.UpdateResponse;
+import com.example.objectProtocol.requestClasses.*;
+import com.example.objectProtocol.responseClasses.*;
 import com.example.repository.RepoBoss;
 import com.example.repository.RepoEmployee;
 import com.example.repository.RepoTask;
@@ -114,10 +119,12 @@ public class ObjectProxy implements IService {
         RepoTask repoTask = new RepoTask();
         Employee employee = repoEmployee.findOne(task.getEmployeeId());
         Task task1 = repoTask.findOne(task.getTaskId());
-        TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getTaskId(), employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
+        TaskOfEmployeeDTO taskOfEmployeeDTO = new TaskOfEmployeeDTO(employee.getId(), task.getTaskId(),
+                employee.getName(), task1.getName(), task1.getDeadline(), String.valueOf(task.getTaskStatus()));
         System.out.println(taskOfEmployeeDTO.getStatus());
         sendRequest(new UpdatePerformancesTableRequest(taskOfEmployeeDTO));
         Response response = readResponse();
+        System.out.println("Read response a returnat: " + response);
         if (response instanceof ErrorResponse err) {
             throw new Exception(err.getMessage());
         }
@@ -154,6 +161,7 @@ public class ObjectProxy implements IService {
         try {
             outputStream.writeObject(request);
             outputStream.flush();
+            System.out.println("Deci a trimis bine in send request ala!\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

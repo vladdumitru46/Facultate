@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Main {
-    private static int defaultPort = 55555;
+    private static final int defaultPort = 55555;
 
     public static void main(String[] args) {
         Properties serverProperties = new Properties();

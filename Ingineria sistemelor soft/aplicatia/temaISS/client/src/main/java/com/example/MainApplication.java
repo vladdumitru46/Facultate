@@ -4,7 +4,7 @@ import com.example.controller.BossMainPage;
 import com.example.controller.EmployeeArrivalPage;
 import com.example.controller.EmployeeMainPage;
 import com.example.controller.LogIn;
-import com.example.objectProtocol.ObjectProxy;
+import com.example.objectProtocol.protocols.ObjectProxy;
 import com.example.repository.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

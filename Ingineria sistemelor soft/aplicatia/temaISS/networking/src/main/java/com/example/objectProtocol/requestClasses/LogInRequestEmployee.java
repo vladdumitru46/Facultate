@@ -1,6 +1,7 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.requestClasses;
 
 import com.example.Employee;
+import com.example.objectProtocol.interfaces.Request;
 
 public class LogInRequestEmployee implements Request {
     private final Employee employee;

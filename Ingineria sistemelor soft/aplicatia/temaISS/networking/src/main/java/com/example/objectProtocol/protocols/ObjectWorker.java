@@ -1,8 +1,12 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.protocols;
 
 import com.example.*;
 import com.example.dto.TaskOfEmployeeDTO;
 import com.example.interfaces.IRepoTaskOfEmployee;
+import com.example.objectProtocol.interfaces.Request;
+import com.example.objectProtocol.interfaces.Response;
+import com.example.objectProtocol.requestClasses.*;
+import com.example.objectProtocol.responseClasses.*;
 import com.example.repository.RepoTaskOfEmployee;
 
 import java.io.IOException;

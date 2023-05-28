@@ -1,13 +1,13 @@
 package com.example.utils;
 
 import com.example.IService;
-import com.example.objectProtocol.ObjectWorker;
+import com.example.objectProtocol.protocols.ObjectWorker;
 
 import java.net.Socket;
 
 public class ObjectConcurrentServer extends AbsConcurrentServer {
 
-    private IService service;
+    private final IService service;
 
     public ObjectConcurrentServer(int port, IService service) {
         super(port);

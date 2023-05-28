@@ -1,4 +1,6 @@
-package com.example.objectProtocol;
+package com.example.objectProtocol.responseClasses;
+
+import com.example.objectProtocol.interfaces.Response;
 
 public class ErrorResponse implements Response {
     private String message;
