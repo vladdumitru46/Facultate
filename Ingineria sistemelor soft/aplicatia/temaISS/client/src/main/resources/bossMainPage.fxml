@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.BossMainPage">
+    <tabs>
+        <Tab fx:id="mainTab" text="main">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="sendTask" layoutX="422.0" layoutY="84.0" mnemonicParsing="false" onAction="#onSendTaskButton" text="send task" />
+                        <Button fx:id="employeePerformancesButton" layoutX="416.0" layoutY="186.0" mnemonicParsing="false" onAction="#onEmployeePerformancesPush" text="employee performances" />
+                        <ListView fx:id="listView" layoutX="14.0" layoutY="20.0" prefHeight="324.0" prefWidth="350.0" />
+                        <Button fx:id="closeButton" layoutX="462.0" layoutY="304.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="sendTaskTab" text="send task">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="titleTF" layoutX="159.0" layoutY="45.0" />
+                        <TextArea fx:id="descriptionTF" layoutX="159.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" />
+                        <DatePicker fx:id="deadlineTF" layoutX="159.0" layoutY="308.0" />
+                        <Label layoutX="69.0" layoutY="49.0" text="title" />
+                        <Label layoutX="60.0" layoutY="165.0" text="description" />
+                        <Label layoutX="67.0" layoutY="312.0" text="deadline" />
+                        <Button fx:id="sendButton" layoutX="441.0" layoutY="174.0" mnemonicParsing="false" onAction="#onSendPush" text="send" />
+                  <Button fx:id="closeButton2" layoutX="448.0" layoutY="323.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+      <Tab fx:id="performancesTab" text="employee performances">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="performancesView" layoutX="14.0" layoutY="14.0" prefHeight="338.0" prefWidth="349.0">
+                    <columns>
+                      <TableColumn fx:id="nameColumn" prefWidth="75.0" text="name" />
+                      <TableColumn fx:id="taskColumn" prefWidth="88.0" text="task" />
+                        <TableColumn fx:id="deadlineColumn" prefWidth="89.59996032714844" text="deadline" />
+                        <TableColumn fx:id="statusColumn" prefWidth="93.60003662109375" text="status" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="raiseButton" layoutX="441.0" layoutY="129.0" mnemonicParsing="false" onAction="#onRaisePush" text="raise" />
+                  <Button fx:id="fireButton" layoutX="440.0" layoutY="227.0" mnemonicParsing="false" onAction="#onFirePush" text="fire employee" />
+                  <Button fx:id="closeButton1" layoutX="441.0" layoutY="320.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="raiseTab" text="raise">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="employeeNameLabel" layoutX="253.0" layoutY="52.0" text=" ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="employeeNameLabel1" layoutX="110.0" layoutY="149.0" text="Current salary" />
+                  <Label fx:id="curentSalaryLabel" layoutX="259.0" layoutY="149.0" prefHeight="17.0" prefWidth="103.0" text=" " />
+                  <TextField fx:id="newSalaryTF" layoutX="201.0" layoutY="204.0" />
+                  <Label layoutX="121.0" layoutY="208.0" text="New slary" />
+                  <Button fx:id="raiseSalaryButton" layoutX="250.0" layoutY="290.0" mnemonicParsing="false" onAction="#onRaiseSalaryPush" text="raise salary" />
+                  <Button fx:id="closeButton3" layoutX="495.0" layoutY="319.0" mnemonicParsing="false" onAction="#onClosePush" text="close" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+    </tabs>
+</TabPane>

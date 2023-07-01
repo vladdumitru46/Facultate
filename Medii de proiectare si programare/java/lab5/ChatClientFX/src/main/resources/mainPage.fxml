@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui.MainPagePane">
+  <tabs>
+    <Tab fx:id="mainPageTab" text="main page">
+      <content>
+        <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableView" layoutX="14.0" layoutY="49.0" onMouseClicked="#onMouseClicked" prefHeight="308.0" prefWidth="418.0">
+                     <columns>
+                        <TableColumn fx:id="stageName" prefWidth="75.0" text="Stage name" />
+                        <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+                        <TableColumn fx:id="place" prefWidth="75.0" text="Place" />
+                        <TableColumn fx:id="ticketsAvailable" prefWidth="118.39996337890625" text="Tickets availabale " />
+                        <TableColumn fx:id="ticketsSold" prefWidth="72.0" text="Tickets sold" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="logOutButton" layoutX="478.0" layoutY="162.0" mnemonicParsing="false" onAction="#onLogOutPush" prefHeight="47.0" prefWidth="85.0" text="log out" />
+                  <Label fx:id="label1" layoutX="486.0" layoutY="24.0" text=" " />
+                  <DatePicker fx:id="datePicker" layoutX="88.0" layoutY="11.0" promptText="select a date" />
+                  <Button fx:id="search" layoutX="313.0" layoutY="11.0" mnemonicParsing="false" onAction="#onSearchPush" text="search" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="sellTicketsTab" text="sell tickets">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="nameTF" layoutX="170.0" layoutY="111.0" prefHeight="26.0" prefWidth="230.0" />
+                  <TextField fx:id="ticketsTF" layoutX="170.0" layoutY="200.0" prefHeight="26.0" prefWidth="230.0" />
+                  <Label fx:id="label" layoutX="244.0" layoutY="34.0" prefHeight="38.0" prefWidth="82.0" text="   ">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="sellButton" layoutX="248.0" layoutY="280.0" mnemonicParsing="false" onAction="#onSellTPush" prefHeight="26.0" prefWidth="74.0" text="Sell" />
+                  <Label layoutX="48.0" layoutY="204.0" text="Number of tickets" />
+                  <Label layoutX="48.0" layoutY="115.0" text="Name: " />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
