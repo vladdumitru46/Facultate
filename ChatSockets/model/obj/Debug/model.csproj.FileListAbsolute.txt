@@ -1,0 +1,6 @@
+C:\Users\vladb\Desktop\ChatSockets\model\bin\Debug\model.dll
+C:\Users\vladb\Desktop\ChatSockets\model\bin\Debug\model.pdb
+C:\Users\vladb\Desktop\ChatSockets\model\obj\Debug\model.csproj.AssemblyReference.cache
+C:\Users\vladb\Desktop\ChatSockets\model\obj\Debug\model.csproj.CoreCompileInputs.cache
+C:\Users\vladb\Desktop\ChatSockets\model\obj\Debug\model.dll
+C:\Users\vladb\Desktop\ChatSockets\model\obj\Debug\model.pdb

@@ -1,0 +1,11 @@
+rootProject.name = "schelet"
+include 'client'
+include 'client'
+include 'client'
+include 'model'
+include 'persistence'
+include 'networking'
+include 'service'
+include 'server'
+include 'restServices'
+

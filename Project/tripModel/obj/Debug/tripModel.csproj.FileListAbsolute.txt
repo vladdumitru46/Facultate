@@ -1,0 +1,12 @@
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\bin\Debug\tripModel.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\bin\Debug\tripModel.pdb
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\obj\Debug\tripModel.csproj.AssemblyReference.cache
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\obj\Debug\tripModel.csproj.CoreCompileInputs.cache
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\obj\Debug\tripModel.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripModel\obj\Debug\tripModel.pdb
+C:\Users\vladb\Desktop\Project\tripModel\bin\Debug\tripModel.dll
+C:\Users\vladb\Desktop\Project\tripModel\bin\Debug\tripModel.pdb
+C:\Users\vladb\Desktop\Project\tripModel\obj\Debug\tripModel.csproj.AssemblyReference.cache
+C:\Users\vladb\Desktop\Project\tripModel\obj\Debug\tripModel.csproj.CoreCompileInputs.cache
+C:\Users\vladb\Desktop\Project\tripModel\obj\Debug\tripModel.dll
+C:\Users\vladb\Desktop\Project\tripModel\obj\Debug\tripModel.pdb

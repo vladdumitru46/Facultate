@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.example.Game" table="gropi">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="identity"/>
+        </id>
+        <property name="playerAlias" column="player_alias" type="java.lang.String"/>
+        <property name="startTime" column="start_time" type="java.time.LocalTime"/>
+        <property name="finishTime" column="finish_time" type="java.time.LocalTime"/>
+        <property name="gameTime" column="game_time" type="java.lang.Integer"/>
+        <property name="poOfGropi" column="po_of_gropi" type="java.lang.String"/>
+        <property name="noOfPoints" column="points" type="java.lang.Integer"/>
+        <property name="positionsOfPlayer" column="positions_of_player" type="java.lang.String"/>
+
+    </class>
+</hibernate-mapping>

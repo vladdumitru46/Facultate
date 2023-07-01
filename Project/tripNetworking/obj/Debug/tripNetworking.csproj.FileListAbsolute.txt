@@ -1,0 +1,24 @@
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\obj\Debug\tripNetworking.csproj.AssemblyReference.cache
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\obj\Debug\tripNetworking.csproj.CoreCompileInputs.cache
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripNetworking.dll.config
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripNetworking.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripNetworking.pdb
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripModel.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripServices.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripModel.pdb
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\bin\Debug\tripServices.pdb
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\obj\Debug\tripNetworking.csproj.CopyComplete
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\obj\Debug\tripNetworking.dll
+C:\Users\Andrei Erhan\RiderProjects\mpp-proiect-csharp-Andreliano\Project\tripNetworking\obj\Debug\tripNetworking.pdb
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripNetworking.dll.config
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripNetworking.dll
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripNetworking.pdb
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripModel.dll
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripServices.dll
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripModel.pdb
+C:\Users\vladb\Desktop\Project\tripNetworking\bin\Debug\tripServices.pdb
+C:\Users\vladb\Desktop\Project\tripNetworking\obj\Debug\tripNetworking.csproj.AssemblyReference.cache
+C:\Users\vladb\Desktop\Project\tripNetworking\obj\Debug\tripNetworking.csproj.CoreCompileInputs.cache
+C:\Users\vladb\Desktop\Project\tripNetworking\obj\Debug\tripNetworking.csproj.CopyComplete
+C:\Users\vladb\Desktop\Project\tripNetworking\obj\Debug\tripNetworking.dll
+C:\Users\vladb\Desktop\Project\tripNetworking\obj\Debug\tripNetworking.pdb

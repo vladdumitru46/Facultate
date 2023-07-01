@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.example.Game" table="games">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="identity"/>
+        </id>
+        <property name="playerAlias" column="player_alias" type="java.lang.String"/>
+        <property name="numberOfTries" column="number_of_tries" type="java.lang.Integer"/>
+        <property name="startTimeAndDate" type="java.time.LocalDateTime">
+            <column name="start_date_and_time" sql-type="timestamp"/>
+        </property>
+        <property name="textOfClue" column="text_of_clue" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

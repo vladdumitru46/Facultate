@@ -1,0 +1,4 @@
+C:\Users\vladb\Desktop\Tasks\Tasks\obj\x86\Debug\Tasks.csproj.AssemblyReference.cache
+C:\Users\vladb\Desktop\Tasks\Tasks\obj\x86\Debug\Tasks.csproj.SuggestedBindingRedirects.cache
+C:\Users\vladb\Desktop\Tasks\Tasks\obj\x86\Debug\Tasks.exe.config
+C:\Users\vladb\Desktop\Tasks\Tasks\obj\x86\Debug\Tasks.csproj.CoreCompileInputs.cache

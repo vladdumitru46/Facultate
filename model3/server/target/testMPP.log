@@ -1,0 +1,1 @@
+19 Jun 2023 20:27:12,138 WARN  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl 75 configure - HHH10001002: Using Hibernate built-in connection pool (not for production use!)

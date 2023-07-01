@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'temaMPP'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':ChatModel')
+    implementation project(':ChatPersistence')
+    implementation project(':ChatServices')
+    implementation project(':ChatNetworking')
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    
+}
+
+application {
+    mainClassName = 'com/example/StartServerProtobuf'
+}
+

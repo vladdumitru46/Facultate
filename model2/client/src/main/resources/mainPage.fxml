@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MainPage">
+  <tabs>
+    <Tab fx:id="mainTab" text="main">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="265.0" layoutY="161.0" mnemonicParsing="false" onAction="#onStartGamePush" text="strat game" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="gameTab" text="game">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="c1TF" layoutX="227.0" layoutY="160.0" />
+                  <TextField fx:id="c2TF" layoutX="227.0" layoutY="220.0" />
+                  <Label fx:id="wordLabel" layoutX="288.0" layoutY="37.0" text=" " />
+                  <Label fx:id="user1Label" layoutX="286.0" layoutY="81.0" text=" " />
+                  <Label fx:id="user2Label" layoutX="288.0" layoutY="121.0" text=" " />
+                  <Label layoutX="138.0" layoutY="224.0" text="caracteristic 2" />
+                  <Label layoutX="136.0" layoutY="164.0" text="caracterestic 1" />
+                  <Button fx:id="submitButton" layoutX="276.0" layoutY="291.0" mnemonicParsing="false" onAction="#onSubmitPush" text="submit" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="scoresTab" text="scores">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableView" layoutX="46.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="userName" prefWidth="113.59997940063477" text="userName" />
+                      <TableColumn fx:id="points" prefWidth="85.60003662109375" text="points" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripClient", "tripClient\tripClient.csproj", "{DB0E9C89-03FC-4644-AA35-8B309775BDA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripModel", "tripModel\tripModel.csproj", "{A96F330A-6F7E-4C85-9925-EBB06D6AFF37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripNetworking", "tripNetworking\tripNetworking.csproj", "{90A0C741-DAFF-4F86-9B78-26E03B5A9A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripPersistence", "tripPersistence\tripPersistence.csproj", "{19393132-0CB6-4FB8-8446-CF2F8AB9D40F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripServer", "tripServer\tripServer.csproj", "{16C9A1C9-9A80-4FE1-B0BE-284D71D95A8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripServices", "tripServices\tripServices.csproj", "{2CE38E21-639C-4598-8E62-4903866EE85A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB0E9C89-03FC-4644-AA35-8B309775BDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0E9C89-03FC-4644-AA35-8B309775BDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0E9C89-03FC-4644-AA35-8B309775BDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0E9C89-03FC-4644-AA35-8B309775BDA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96F330A-6F7E-4C85-9925-EBB06D6AFF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96F330A-6F7E-4C85-9925-EBB06D6AFF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96F330A-6F7E-4C85-9925-EBB06D6AFF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96F330A-6F7E-4C85-9925-EBB06D6AFF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A0C741-DAFF-4F86-9B78-26E03B5A9A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A0C741-DAFF-4F86-9B78-26E03B5A9A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A0C741-DAFF-4F86-9B78-26E03B5A9A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A0C741-DAFF-4F86-9B78-26E03B5A9A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19393132-0CB6-4FB8-8446-CF2F8AB9D40F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19393132-0CB6-4FB8-8446-CF2F8AB9D40F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19393132-0CB6-4FB8-8446-CF2F8AB9D40F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19393132-0CB6-4FB8-8446-CF2F8AB9D40F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C9A1C9-9A80-4FE1-B0BE-284D71D95A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C9A1C9-9A80-4FE1-B0BE-284D71D95A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C9A1C9-9A80-4FE1-B0BE-284D71D95A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C9A1C9-9A80-4FE1-B0BE-284D71D95A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE38E21-639C-4598-8E62-4903866EE85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE38E21-639C-4598-8E62-4903866EE85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE38E21-639C-4598-8E62-4903866EE85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE38E21-639C-4598-8E62-4903866EE85A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
