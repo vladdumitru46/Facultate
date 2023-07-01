@@ -1,9 +1,0 @@
-rootProject.name = 'JavaChatSockets'
-include 'ChatServices'
-include 'ChatModel'
-include 'ChatPersistence'
-include 'ChatServer'
-include 'ChatClient'
-include 'ChatNetworking'
-include 'RestServices'
-
