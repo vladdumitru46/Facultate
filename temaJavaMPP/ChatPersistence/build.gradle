@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'temaMPP'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':ChatModel')
+//    implementation project(':ChatClientFX')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.14.Final'
+    implementation 'org.springframework:spring-context:6.0.9'
+    runtimeOnly group: 'org.xerial', name: 'sqlite-jdbc', version: '3.16.1'
+    //https:mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.5.4'
+}
+
+test {
+    useJUnitPlatform()
+}
