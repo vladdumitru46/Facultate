@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+
+
+<body>
+<form method="GET">
+    <h1> Formular de &#238;nscriere la un concurs in HTML 5</h1>
+    <a href="https://maramuresenii.ro/concurs-visul-tau-pentru-maramuresul-anului-2020/"><img src="Concurs.jpg"
+                                                                                              alt="Concurs"></a>
+    <table>
+        <tr>
+            <th colspan="2">Datele participantului</th>
+        </tr>
+        <tr>
+            <th> Nume</th>
+            <td><label>
+                <input type="text" name="firstname">
+            </label></td>
+        </tr>
+        <tr>
+            <th> Prenume</th>
+            <td><label>
+                <input type="text" name="lastname">
+            </label></td>
+        </tr>
+        <tr>
+            <th> V&#226;rst&#259;</th>
+            <td><label>
+                <input type="text" name="age">
+            </label></td>
+        </tr>
+        <tr>
+            <th> Adres&#259;</th>
+            <td><label>
+                <input type="text" name="address">
+            </label></td>
+        </tr>
+        <tr>
+            <th> Adres&#259; de mail</th>
+            <td><label>
+                <input type="text" name="mail">
+            </label></td>
+        </tr>
+        <tr>
+            <th>Num&#259;r telefon</th>
+            <td><label>
+                <input type="text" name="phneNO">
+            </label></td>
+        </tr>
+
+        <tr>
+            <th>Ora&#351;</th>
+            <td><label>
+                <input type="text" name="town">
+            </label></td>
+
+        </tr>
+        <tr>
+            <th>Jude&#355;</th>
+            <td><label>
+                <input type="text" name="judet">
+            </label></td>
+
+        </tr>
+        <tr>
+            <th>Localitate</th>
+            <td><label>
+                <input type="text" name="localitate">
+            </label></td>
+
+        </tr>
+        <tr>
+            <th>Na&#355;ionalitate</th>
+            <td><label>
+                <input type="text" name="nationality">
+            </label></td>
+
+        </tr>
+        <tr>
+            <th>Sex</th>
+            <td><label>
+                <input type="radio" name="gender">
+            </label>Masculin<br>
+                <label>
+                    <input type="radio" name="gender">
+                </label>Feminin<br>
+                <label>
+                    <input type="radio" name="gender">
+                </label>Altul
+            </td>
+        </tr>
+        <tr>
+            <th>Mod de ajungere la concurs</th>
+            <td>
+                <label>
+                    <input type="checkBox" name="travel">
+                </label>Avion<br>
+                <label>
+                    <input type="checkBox" name="gender">
+                </label>Ma&#351;in&#259;<br>
+                <label>
+                    <input type="checkBox" name="gender">
+                </label>Autocar<br>
+                <label>
+                    <input type="checkBox" name="gender">
+                </label>Tren<br>
+                <label>
+                    <input type="checkBox" name="gender">
+                </label>Altul<br>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <table>
+                    <tr>
+                        <th colspan="2">Detalii concurs</th>
+                    </tr>
+                    <tr>
+                        <th> Nume concurs</th>
+                        <td>
+                            <label>
+                                <select name="concurs">
+                                    <option value="matematica"> Matematic&#259;</option>
+                                    <option value="informatica"> Informatic&#259;</option>
+                                    <option value="Sport"> Sport</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ora&#351; concurs</th>
+                        <td>
+                            <label>
+                                <select name="oras" multiple>
+                                    <option value="iasi"> Ia&#351;i</option>
+                                    <option value="Cluj"> Cluj</option>
+                                    <option value="Brasov"> Bra&#351;ov</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Dat&#259;</th>
+                        <td><label>
+                            <input type="date" name="data">
+                        </label></td>
+                    </tr>
+                </table>
+            </th>
+            <td>
+                <label>
+                    <textarea name="message" rows="10" cols="30">Introduce&#355;i observa&#355;ii</textarea>
+                </label>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th colspan="2">Metode de plata</th>
+        </tr>
+        <tr>
+            <th>Num&#259;r card</th>
+            <td><label>
+                <input type="text" name="cardNumber">
+            </label></td>
+        </tr>
+        <tr>
+            <th>Expirare Card</th>
+            <td><label>
+                <input type="date" name="Expirydate">
+            </label></td>
+        </tr>
+        <tr>
+            <th>Cvc</th>
+            <td><label>
+                <input type="text" name="cvc">
+            </label></td>
+        </tr>
+        <tr>
+            <th>Suma</th>
+            <td>500</td>
+        </tr>
+    </table>
+    <input type="submit" value="Register!">
+    <input type="reset">
+    <div>
+        <h4>Codurile participan&#355;iilor &#238;nscri&#351;i</h4>
+        <ol>
+            <li><h5>Codul participan&#355;iilor &#238;nscri&#351;i la concusrul de matematic&#259;</h5></li>
+        </ol>
+        <ol type="A">
+            <li>x001GF</li>
+            <li>x002GF</li>
+            <li>x003GF</li>
+            <li>x004GF</li>
+            <li>x005GF</li>
+            <li>x006GF</li>
+            <li>x007GF</li>
+        </ol>
+        <ol>
+            <li><h5>Codul participan&#355;iilor &#238;nscri&#351;i la concusrul de informatic&#259;</h5></li>
+        </ol>
+        <ol type="a">
+            <li>x008GF</li>
+            <li>x009GF</li>
+            <li>x010GF</li>
+            <li>x011GF</li>
+            <li>x012GF</li>
+            <li>x013GF</li>
+        </ol>
+        <ol>
+            <li><h5>Codul participan&#355;iilor &#238;nscri&#351;i la concusrul de sport</h5></li>
+        </ol>
+        <ol type="I">
+
+            <li>x014GF</li>
+            <li>x015GF</li>
+            <li>x016GF</li>
+            <li>x017GF</li>
+            <li>x018GF</li>
+            <li>x019GF</li>
+            <li>x020GF</li>
+            <li>x021GF</li>
+        </ol>
+    </div>
+
+</form>
+</body>
+</html>
+
+

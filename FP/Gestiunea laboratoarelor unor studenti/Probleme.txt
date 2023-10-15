@@ -1,6 +1,0 @@
-1,1,Problema de mate cu integrale,23/2/2021
-1,2,Problema de mate cu matrici,23/2/2021
-1,4,1111,1111
-1,3,Problema de mate cu functii,30/1/2021
-2,1,Problema de info cu matrici, 31/3/2022
-2,2,Problema de info cu grafuri,22/1/2022

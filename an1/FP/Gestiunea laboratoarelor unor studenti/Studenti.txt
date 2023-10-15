@@ -1,0 +1,15 @@
+23,Dumitru Vlad,213
+24,Melnic Katalin,214
+21,Cucu Raul, 216
+20,Ion Gheorghe,214
+29,Marian Catalin,216
+25,Albert Radulet, 211 
+33,Ghita Gheorghe,217
+40,Ratiu Bogdan,212
+99,Zlatan Ibrahimovic,333
+34,Bucur ie,219
+77,Langa Ionut,222
+76,Austan George,210
+75,Valeria valeriu,222
+98,Qulan Giu,211
+55,Dandanica Gananga,333

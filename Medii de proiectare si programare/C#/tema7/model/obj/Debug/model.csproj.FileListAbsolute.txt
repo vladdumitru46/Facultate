@@ -1,6 +1,0 @@
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\bin\Debug\model.dll
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\bin\Debug\model.pdb
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\obj\Debug\model.csproj.AssemblyReference.cache
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\obj\Debug\model.csproj.CoreCompileInputs.cache
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\obj\Debug\model.dll
-C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\model\obj\Debug\model.pdb
