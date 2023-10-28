@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temampp.SearchArtists">
+   <children>
+      <TableView fx:id="tableView" layoutX="24.0" layoutY="64.0" prefHeight="282.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="stageName" prefWidth="91.20001220703125" text="Stage name" />
+            <TableColumn fx:id="date" prefWidth="74.4000244140625" text="Date" />
+            <TableColumn fx:id="place" prefWidth="81.5999755859375" text="Place" />
+            <TableColumn fx:id="ticketsAvailable" prefWidth="154.39996337890625" text="Tickets availabale " />
+            <TableColumn fx:id="ticketsSold" prefWidth="143.2000732421875" text="Tickets sold" />
+         </columns>
+      </TableView>
+      <Button fx:id="sellTickets" layoutX="274.0" layoutY="361.0" mnemonicParsing="false" onAction="#onSellPush" text="sell tickets" />
+      <Button fx:id="search" layoutX="410.0" layoutY="26.0" mnemonicParsing="false" onAction="#onSearchPush" text="search" />
+      <DatePicker fx:id="datePicker" layoutX="206.0" layoutY="26.0" promptText="select a date" />
+      <Button fx:id="backButton" layoutX="52.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBackPush" text="back to main page" />
+   </children>
+</AnchorPane>

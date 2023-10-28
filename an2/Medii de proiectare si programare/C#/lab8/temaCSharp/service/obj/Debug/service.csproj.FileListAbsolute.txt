@@ -1,0 +1,9 @@
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\bin\Debug\service.dll
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\bin\Debug\service.pdb
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\bin\Debug\model.dll
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\bin\Debug\model.pdb
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\obj\Debug\service.csproj.AssemblyReference.cache
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\obj\Debug\service.csproj.CoreCompileInputs.cache
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\obj\Debug\service.csproj.CopyComplete
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\obj\Debug\service.dll
+C:\Users\vladb\Desktop\Facultate\MPP\temaC#MPP\temaCSharp\service\obj\Debug\service.pdb

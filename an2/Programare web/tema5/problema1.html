@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista trenuri</title>
+</head>
+<body>
+<h1>Lista trenuri</h1>
+<label for="plecare">Statie de plecare:</label>
+<select id="plecare" name="plecare" onchange="getData()">
+    <option value=""></option>
+    <option value="Oras1">Oras1</option>s
+    <option value="Oras2">Oras2</option>
+    <option value="Oras3">Oras3</option>
+    <option value="Oras4">Oras4</option>
+    <option value="Oras5">Oras5</option>
+    <option value="Oras6">Oras6</option>
+    <option value="Oras7">Oras7</option>
+</select>
+<br><br>
+<label for="sosire">Statie de sosire:</label>
+<select id="sosire" name="sosire">
+    <option value="">Alege o statie de plecare</option>
+</select>
+<script>
+    function getData() {
+        let plecare = document.getElementById("plecare").value;
+        if(plecare===""){
+            document.getElementById("sosire").innerHTML="";
+            return;
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("sosire").innerHTML = this.responseText;
+            }
+        };
+        xhr.open("GET", "p1.php?plecare=" + plecare, true);
+        xhr.send(null);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Clientul citeste un cuvant, serveru caluleaza suma ascii a cuvantului cititi de client, iar apoi clientul incearca sa ghiceasca suma in  5 incercari

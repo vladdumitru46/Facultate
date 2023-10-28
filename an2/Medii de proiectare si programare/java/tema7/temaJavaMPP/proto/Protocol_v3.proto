@@ -1,0 +1,31 @@
+syntax = "proto3";
+package proto;
+option java_package = "com.example.protobuffProtocol";
+option java_outer_classname = "Protobufs";
+
+message EmployeeAtOffice{
+  string email = 1;
+  string password = 2;
+}
+
+message Buyers{
+  string buyerName = 1;
+  string noOfTickets = 2;
+  string showName = 3;
+}
+
+message Request{
+  enum Type{Unknown = 0; LogIn = 1; LogOut = 2; SellTicketsRequest = 3;}
+  Type type = 1;
+  oneof payload{
+    EmployeeAtOffice employee = 2;
+    Buyers show = 3;
+  }
+}
+
+message Response{
+  enum Type{Unknown = 0; Ok = 1; Error = 2; SellTicketsResponse = 3;}
+  Type type = 1;
+  string error = 2;
+  Buyers show = 3;
+}

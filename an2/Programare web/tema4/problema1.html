@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problema 1</title>
+</head>
+<body>
+<select size="20" class="lista1">
+    <option id="ol" value="value opt 1">valoarea 1</option>
+    <option id="ol2" value="value opt 2">valoarea 2</option>
+    <option id="ol3" value="value opt 3">valoarea 3</option>
+    <option id="ol4" value="value opt 4">valoarea 4</option>
+    <option id="ol5" value="value opt 5">valoarea 5</option>
+</select>
+<select size="20" class="lista2">
+    <option class="ol6" value="value opt 6">valoarea 6</option>
+    <option class="ol7" value="value opt 7">valoarea 7</option>
+    <option class="ol8" value="value opt 8">valoarea 8</option>
+    <option class="ol9" value="value opt 9">valoarea 9</option>
+    <option class="ol10" value="value opt 10">valoarea 10</option>
+</select>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(".lista1 option").click(function() {
+        $(this).remove();
+        $(".lista2").append(this);
+    });
+    $(".lista2 option").click(function() {
+        $(this).remove();
+        $(".lista1").append(this);
+    });
+
+</script>
+</html>
