@@ -1,0 +1,22 @@
+Să se identifice cel mai scurt drum care pleacă dintr-un nod, vizitează toate nodurile (fiecare nod este vizitat o singură dată) și revine în locația de start folosind un algoritm evolutiv. Se vor folosi:
+
+informatii din lucrarea Gonen, B., & Louis, S. J. (2006). Genetic Algorithm finding the shortest path in Networks. Reno: University of Nevada link
+reteaua sociala dezvoltata semestrul trecut la MAP (cu construirea in prealabil a grafului corespunzator ei)
+exemplele din arhiva TSP.zip
+Aplicaţia (specificata, proiectata si implementata) trebuie să permită:
+
+Încărcarea datelor problemei
+Alegerea şi parametrizarea metodei de rezolvare a problemei
+Afişarea soluţiei identificate
+Precizarea performanţelor metodei de rezolvare alese
+Aplicația trebuie să respecte specificațiile privind datele de intrare și datele de ieșire.
+
+Aplicația va fi testată folosind date de difcultăți diferite (fiecare test validat având asociat un anumit punctaj).
+
+Datele de intrare sunt reprezentate de:
+
+graful retelei
+parametrii algoritmului
+Datele de iesire sunt reprezentate de:
+
+ordinea in care trebuie vizitate nodurile pentru a obtine cel mai bun drum

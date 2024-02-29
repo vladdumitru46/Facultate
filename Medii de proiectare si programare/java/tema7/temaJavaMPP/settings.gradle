@@ -1,0 +1,11 @@
+rootProject.name = "temaMPP"
+include 'ChatServices'
+include 'ChatServer'
+include 'ChatModel'
+include 'ChatPersistence'
+include 'ChatClient'
+include 'ChatClientFX'
+include 'untitled'
+include 'ChatNetworking'
+include 'RestServices'
+
